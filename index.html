@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="bhT4SlZZ3IgyBr8mu8MAOI">
+<head data-page-node-id="w5RW68KvQyhGyMlhL8vpJI">
+<meta charset="UTF-8" data-page-node-id="iVAdKHDWMmPRvd7kC1grsx">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="uD1Y5BRhPOqkUhJDy43tXF">
+<title>国庆福建七日游 · 首页</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f5f0e8;
+    color: #2c2c2c;
+    line-height: 1.8;
+  }
+  .container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #1a3c5e 0%, #2d6a9f 50%, #3a8dbc 100%);
+    color: #fff;
+    padding: 50px 20px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -40%; right: -15%;
+    width: 400px; height: 400px; background: rgba(255,255,255,0.05); border-radius: 50%;
+  }
+  .hero h1 { font-size: 30px; margin-bottom: 8px; position: relative; z-index: 1; letter-spacing: 1px; }
+  .hero .subtitle { font-size: 15px; opacity: 0.9; position: relative; z-index: 1; }
+  .hero .route-bar {
+    margin-top: 16px; font-size: 13px; opacity: 0.85; position: relative; z-index: 1; letter-spacing: 2px;
+  }
+  .hero .route-bar span { margin: 0 6px; }
+  .hero .route-bar .arrow { opacity: 0.5; }
+  .hero .nav-links { margin-top: 20px; position: relative; z-index: 1; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .hero .nav-links a {
+    display: inline-block; padding: 8px 20px; background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25); border-radius: 20px; color: #fff;
+    text-decoration: none; font-size: 13px; transition: background 0.2s;
+  }
+  .hero .nav-links a:hover { background: rgba(255,255,255,0.25); }
+
+  /* Section Title */
+  .section-title {
+    text-align: center; margin: 40px 0 24px; position: relative;
+  }
+  .section-title h2 { font-size: 24px; color: #1a3c5e; }
+  .section-title p { font-size: 14px; color: #999; margin-top: 4px; }
+  .section-title::after {
+    content: ''; display: block; width: 60px; height: 3px;
+    background: linear-gradient(90deg, #e8945a, #d4733e); margin: 12px auto 0; border-radius: 2px;
+  }
+
+  /* Day Cards */
+  .day-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px; margin-bottom: 40px;
+  }
+  .day-card {
+    background: #fff; border-radius: 14px; overflow: hidden;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.06); transition: transform 0.15s, box-shadow 0.15s;
+    text-decoration: none; color: inherit; display: block;
+  }
+  .day-card:hover { transform: translateY(-3px); box-shadow: 0 6px 24px rgba(0,0,0,0.12); }
+  .day-card .card-header { padding: 16px 18px 10px; color: #fff; }
+  .day-card .card-badge { font-size: 11px; font-weight: 600; opacity: 0.85; letter-spacing: 1px; }
+  .day-card .card-title { font-size: 18px; font-weight: 700; margin-top: 2px; }
+  .day-card .card-body { padding: 14px 18px 18px; }
+  .day-card .card-city { font-size: 14px; color: #1a3c5e; font-weight: 600; margin-bottom: 6px; }
+  .day-card .card-attractions { font-size: 13px; color: #666; line-height: 1.7; margin-bottom: 8px; }
+  .day-card .card-food {
+    font-size: 12px; color: #c4710a; background: #fff8e1; border-radius: 6px;
+    padding: 6px 10px; margin-top: 6px; line-height: 1.6;
+  }
+  .day-card .card-food .food-label { font-weight: 700; }
+  .day-card .card-cta {
+    margin-top: 10px; font-size: 13px; color: #2d6a9f; font-weight: 600;
+    display: flex; align-items: center; gap: 4px;
+  }
+
+  .d1 .card-header { background: linear-gradient(135deg, #2d6a9f, #3a8dbc); }
+  .d2 .card-header { background: linear-gradient(135deg, #1a7a5e, #2d9b78); }
+  .d3 .card-header { background: linear-gradient(135deg, #2d6a9f, #4a8db8); }
+  .d4 .card-header { background: linear-gradient(135deg, #8b4a8e, #b068b3); }
+  .d5 .card-header { background: linear-gradient(135deg, #c4661f, #e08a3c); }
+  .d6 .card-header { background: linear-gradient(135deg, #d4733e, #e8945a); }
+  .d7 .card-header { background: linear-gradient(135deg, #555, #777); }
+
+  /* Food Brief */
+  .food-section {
+    background: #fff; border-radius: 18px; overflow: hidden;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.06); margin-bottom: 40px;
+  }
+  .food-section .fs-header {
+    background: linear-gradient(135deg, #b85c1f, #d97332); color: #fff;
+    padding: 28px 28px 20px; text-align: center;
+  }
+  .food-section .fs-header h2 { font-size: 22px; margin-bottom: 4px; }
+  .food-section .fs-header p { font-size: 13px; opacity: 0.9; }
+  .food-section .fs-body { padding: 24px 28px 28px; }
+  .food-city-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+  }
+  .food-city-card {
+    background: #fafff9; border: 1px solid #e0ebe5; border-radius: 10px;
+    padding: 16px; transition: box-shadow 0.15s;
+  }
+  .food-city-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.06); }
+  .food-city-card .fc-city { font-size: 16px; font-weight: 700; color: #1a5c3a; margin-bottom: 8px; }
+  .food-city-card .fc-cat { font-size: 12px; font-weight: 700; margin-top: 8px; margin-bottom: 3px; }
+  .food-city-card .fc-cat.meal { color: #b85c1f; }
+  .food-city-card .fc-cat.snack { color: #2e7d32; }
+  .food-city-card .fc-cat.sweet { color: #ad4574; }
+  .food-city-card .fc-items { font-size: 12px; color: #666; line-height: 1.6; }
+  .food-city-card .fc-shop { font-size: 11px; color: #999; margin-top: 4px; }
+
+  .food-cta {
+    text-align: center; margin-top: 20px;
+  }
+  .food-cta a {
+    display: inline-block; padding: 10px 28px; background: #d97332; color: #fff;
+    border-radius: 22px; text-decoration: none; font-size: 14px; font-weight: 600;
+    transition: background 0.2s;
+  }
+  .food-cta a:hover { background: #b85c1f; }
+
+  /* Quick Links */
+  .quick-links {
+    display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin: 0 0 40px;
+  }
+  .quick-link {
+    background: #fff; border-radius: 12px; padding: 20px 28px; text-decoration: none; color: inherit;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05); transition: transform 0.15s; flex: 1; min-width: 200px; text-align: center;
+  }
+  .quick-link:hover { transform: translateY(-2px); }
+  .quick-link .ql-icon { font-size: 28px; }
+  .quick-link .ql-title { font-size: 16px; font-weight: 700; color: #1a3c5e; margin-top: 6px; }
+  .quick-link .ql-desc { font-size: 12px; color: #999; margin-top: 4px; }
+
+  /* Footer */
+  .footer { text-align: center; padding: 30px 20px 40px; color: #aaa; font-size: 12px; }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 24px; }
+    .day-grid { grid-template-columns: 1fr; }
+    .food-city-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body data-page-node-id="Y2bxyCfZIkUAevHOsukbTa">
+
+<!-- ===== HERO ===== -->
+<div class="hero" data-page-node-id="azfSEtrwZkUx8jdHrKK6RN">
+  <h1 data-page-node-id="4IXVHmVnZmdRBFmvKbbXj7">🏖️ 国庆福建七日游</h1>
+  <p class="subtitle" data-page-node-id="JgxnGrv3HH8XPyPpoyXurd">福州 → 平潭岛 → 泉州 → 厦门 · 10.1-10.7</p>
+  <div class="route-bar" data-page-node-id="MsUl0JRAcv88N0Ceh7th9g">
+    <span data-page-node-id="qzaAyYPgeFSBm7YAQL4WOH">10.1 福州</span><span class="arrow" data-page-node-id="qfgfSCRDCNZKH4Iw2HbSQJ">→</span>
+    <span data-page-node-id="87FgFq8etBatb9f8OeQjDO">10.2 平潭</span><span class="arrow" data-page-node-id="DmkAGZc9xtY0fAu3eICGoB">→</span>
+    <span data-page-node-id="d0Cnw5gaXjLh5Nmhcuw5Ep">10.3 福州→泉州</span><span class="arrow" data-page-node-id="xv7HN52yJAyGGkNQ2VkUFc">→</span>
+    <span data-page-node-id="H9yG7xQmhrhIpdGKwcnzrY">10.4 泉州</span><span class="arrow" data-page-node-id="gTtdCZhQDFY9OTPWJkTOjG">→</span>
+    <span data-page-node-id="baFfy8GnSFFLstoAIwWmef">10.5 厦门</span><span class="arrow" data-page-node-id="ENxma19ssQHjkAUnoZenZQ">→</span>
+    <span data-page-node-id="1hL0qau2x0ltuAGCD98isZ">10.6 鼓浪屿+集美</span><span class="arrow" data-page-node-id="79QfVumI8Qo0H40dpBhNyK">→</span>
+    <span data-page-node-id="MLMZZ1rgEbQV21H6quN0DB">10.7 返程</span>
+  </div>
+  <div class="nav-links" data-page-node-id="9b2q9KuMfGlL5NLJaqN9Hj">
+    <a href="行程详情.html" data-page-node-id="NEf4hY29mTZgE9PRRBPFpN">📋 查看详细行程</a>
+    <a href="福建四城美食地图.html" data-page-node-id="qcvZ5PXISO9QihYzVAABLy">🍜 查看美食地图</a>
+    <a href="国庆福建旅游规划.html" data-page-node-id="WMhsEY9s6OD25AtqE07rJs">📄 原始完整版</a>
+  </div>
+</div>
+
+<div class="container" data-page-node-id="2IsRUayhLyoaFHEJ7DbIn0">
+
+  <!-- ===== 七日行程简略版 ===== -->
+  <div class="section-title" data-page-node-id="orRqrZU9ZrGNyo39bYtBI0">
+    <h2 data-page-node-id="QOII4Ch8xNEiO04grsUDJK">七日行程概览</h2>
+    <p data-page-node-id="zH2qqXi7u7s6CEaQP4ifar">点击任意日期卡片查看详细行程 + 附近美食标注</p>
+  </div>
+
+  <div class="day-grid" data-page-node-id="2cCJi57KHdAONER8rOklut">
+
+    <!-- Day 1 -->
+    <a href="行程详情.html#day1" class="day-card d1" data-page-node-id="qKw8yFYzshqlUSkbI0Zee8">
+      <div class="card-header" data-page-node-id="ddEG6pl8O2XdIxxMr4fHmk">
+        <div class="card-badge" data-page-node-id="N0asrlkEvywAR8ZUKWMVwc">DAY 1 · 10.1 周三</div>
+        <div class="card-title" data-page-node-id="0mxuQQE1nYxnh5RHOhLryf">福州市区</div>
+      </div>
+      <div class="card-body" data-page-node-id="ZdbRvjBc1K8oACBoJ9yDyj">
+        <div class="card-city" data-page-node-id="S4kYaxZIS22pNh1GLUIQuP">福州 · 仓山区</div>
+        <div class="card-attractions" data-page-node-id="gFRaoALOqqZ9YiDL9outhY">
+          📍 三坊七巷（傍晚到避开高峰）<br data-page-node-id="pHBjcX2xSdU59vcbvy12Tv">
+          📍 烟台山夜景（仓山区，近酒店）
+        </div>
+        <div class="card-food" data-page-node-id="2JZ9PSitwRmAwluF6RRQ9c">
+          <span class="food-label" data-page-node-id="81PxbJFxRY0IKcxlB9S1ir">🍴 附近美食：</span>
+          秉煖馆鱼丸(¥19) · 同利肉燕(¥24) · 南马唐(¥120) · 老药洲街觅食线
+        </div>
+        <div class="card-cta" data-page-node-id="1gmrtTaVTucsVsvb0VYkGr">查看详细行程 →</div>
+      </div>
+    </a>
+
+    <!-- Day 2 -->
+    <a href="行程详情.html#day2" class="day-card d2" data-page-node-id="SDhemFOcpdCXEYaFC7zdqr">
+      <div class="card-header" data-page-node-id="wJn7Rt4Tmt6vI6hnvPfEmC">
+        <div class="card-badge" data-page-node-id="W8QgZpZfexXqXMerwJ58Ke">DAY 2 · 10.2 周四</div>
+        <div class="card-title" data-page-node-id="JtYmOrQn1O0VjQuUDU8hhr">平潭岛（晚归版）</div>
+      </div>
+      <div class="card-body" data-page-node-id="mw2IyHrRo7lyCM4UO9iVQ9">
+        <div class="card-city" data-page-node-id="TLf5osa8CUGGiAEL88trcU">平潭 · 电动车环岛</div>
+        <div class="card-attractions" data-page-node-id="8KzWkV9iAh5PKZUx2vMoJr">
+          📍 仙人井 → 北港村 → 长江澳日落<br data-page-node-id="qXnQz4XDAHKuqxUeupfYbK">
+          📍 猴研岛/68海里（精力旺盛加玩）
+        </div>
+        <div class="card-food" data-page-node-id="6MzKTWFJor4ndjd8RsHdIL">
+          <span class="food-label" data-page-node-id="O10MuKEEK7FTayJXVAKDmq">🍴 附近美食：</span>
+          十三妹咸米时(¥15) · 阿嬷灶咖天长地久(¥6) · 长江澳海蛎饼(¥5) · 英姐砂锅粥(¥50)
+        </div>
+        <div class="card-cta" data-page-node-id="VX1NOYkqE4nD1Qvvm5vFoT">查看详细行程 →</div>
+      </div>
+    </a>
+
+    <!-- Day 3 -->
+    <a href="行程详情.html#day3" class="day-card d3" data-page-node-id="gKRPLepRInmwSZeHBiETOa">
+      <div class="card-header" data-page-node-id="rHmqeSIhr8KxjSlhGzddIa">
+        <div class="card-badge" data-page-node-id="svuAfuyhwlOZd4bpPOB2dn">DAY 3 · 10.3 周五</div>
+        <div class="card-title" data-page-node-id="L375C3DwMsf0ujoy2LuH0G">福州→泉州</div>
+      </div>
+      <div class="card-body" data-page-node-id="eN65rr7L8NlMr7LXrpAza7">
+        <div class="card-city" data-page-node-id="NKMKeFFT6GqoxmI4Rlmzho">福州上下杭 → 泉州</div>
+        <div class="card-attractions" data-page-node-id="dOnxKn8WYFAPkqnc7mJYjm">
+          📍 上下杭古街 → 兴仙饭店午餐<br data-page-node-id="7pWNvUExDxWgnGDc4VIqex">
+          📍 福道森林步道 → 晚班高铁赴泉州
+        </div>
+        <div class="card-food" data-page-node-id="hFJfdB79MTYtWxIaNXLqfw">
+          <span class="food-label" data-page-node-id="ZDvN1j9AHYib0L9mhmWgt8">🍴 附近美食：</span>
+          南港鱼丸炒兴化粉(¥18) · 江南红鱼汤(¥19) · 兴仙饭店(¥98) · 广达眼镜炖罐(¥33)
+        </div>
+        <div class="card-cta" data-page-node-id="NZNTUZdhcyQswm2GKDQ57d">查看详细行程 →</div>
+      </div>
+    </a>
+
+    <!-- Day 4 -->
+    <a href="行程详情.html#day4" class="day-card d4" data-page-node-id="bJ7OzBMbdZDTDKt2fa2kTf">
+      <div class="card-header" data-page-node-id="7Gkk4hpdR4Q3mPtfAzHQvr">
+        <div class="card-badge" data-page-node-id="ooFFyB7wOSrPJMebJxJYY3">DAY 4 · 10.4 周六</div>
+        <div class="card-title" data-page-node-id="R1e6EPhXAB6Q9BH9i7GGf3">泉州一日游</div>
+      </div>
+      <div class="card-body" data-page-node-id="vPZHm3p6mlGHQnf4phSwOe">
+        <div class="card-city" data-page-node-id="FjCjskM4p6oAmm74v6uYdC">泉州 · 西街古城</div>
+        <div class="card-attractions" data-page-node-id="09UMTjHmLW5YI40k0usA9V">
+          📍 西街簪花(¥199全包) → 开元寺 → 关帝庙<br data-page-node-id="MuYkKgJrhyqJH0BUv2QHGl">
+          📍 中山路夜市闲逛
+        </div>
+        <div class="card-food" data-page-node-id="u6neyqOVvOAq4FuaiUN7NR">
+          <span class="food-label" data-page-node-id="3LfeW7jqUK3yIYMKJsHTua">🍴 附近美食：</span>
+          亚佛润饼(¥5) · 水门国仔面线糊(¥15) · 斯丹姜母鸭(¥70) · 秉正堂四果汤(¥10) · 老西街炸鸡腿(¥10)
+        </div>
+        <div class="card-cta" data-page-node-id="OEPgxeVhjmBsypCEf0POth">查看详细行程 →</div>
+      </div>
+    </a>
+
+    <!-- Day 5 -->
+    <a href="行程详情.html#day5" class="day-card d5" data-page-node-id="QH5YBXMMspoG3fDnuZf0wC">
+      <div class="card-header" data-page-node-id="kzdMjeRerbMWinsDHsQGa9">
+        <div class="card-badge" data-page-node-id="UHl88u0oiM09ZB97bryThx">DAY 5 · 10.5 周日</div>
+        <div class="card-title" data-page-node-id="2iTVG44kOpI6dMXOso3HNE">泉州→厦门</div>
+      </div>
+      <div class="card-body" data-page-node-id="v3DF4Kkkvj4jbJMhn8cCIk">
+        <div class="card-city" data-page-node-id="XySADIEYt6gSYEnc2IzhEi">厦门 · 沙坡尾+环岛路</div>
+        <div class="card-attractions" data-page-node-id="ntj6lD9hMDh3zDF7dNKDnp">
+          📍 泉州高铁→厦门入住<br data-page-node-id="Ta0TPBqigPCfgvT7ACcVTP">
+          📍 沙坡尾文艺区 → 环岛路海滨
+        </div>
+        <div class="card-food" data-page-node-id="8G2auNnEJWa5rm8Mgnvmgo">
+          <span class="food-label" data-page-node-id="P0fCrNy72KBqgc8oYttN0E">🍴 附近美食：</span>
+          丽达轩沙茶面(¥20) · 四里沙茶面(¥36) · 八市阿杰五香(¥4) · 黄则和花生汤(¥15)
+        </div>
+        <div class="card-cta" data-page-node-id="LCwfNF7n5YqzIam1UEugGy">查看详细行程 →</div>
+      </div>
+    </a>
+
+    <!-- Day 6 -->
+    <a href="行程详情.html#day6" class="day-card d6" data-page-node-id="AVM6Eve7Z8fUTSmSloqTfv">
+      <div class="card-header" data-page-node-id="A1Pd531SxJDQpp0KRxIlXz">
+        <div class="card-badge" data-page-node-id="lcFcEAlXrdHNKUjJlg4NhJ">DAY 6 · 10.6 周一</div>
+        <div class="card-title" data-page-node-id="kcApELyLklD7DPiN1NxbUJ">鼓浪屿+集美</div>
+      </div>
+      <div class="card-body" data-page-node-id="VvhEH1bQ9QmA0R8skpN6Qt">
+        <div class="card-city" data-page-node-id="LhWPqkmqaoU0q9OUWadxtq">厦门 · 鼓浪屿→集美学村</div>
+        <div class="card-attractions" data-page-node-id="WsZnuszpF3k9SxaS2L1tHr">
+          📍 鼓浪屿（9:30上岛，先走小巷）<br data-page-node-id="b93j52Kx91Vy3S7sfbUGKV">
+          📍 集美学村（傍晚最清净）
+        </div>
+        <div class="card-food" data-page-node-id="IOMU3KneRlrSlrkEvBSS32">
+          <span class="food-label" data-page-node-id="GgO2vxcyWq4BbZ6VvR4WRA">🍴 附近美食：</span>
+          鼓浪屿龙头路小吃街 · 集美八戒鸭仔面(¥25) · 奔水冬粉鸭(¥18) · 林氏麻糍(¥8)
+        </div>
+        <div class="card-cta" data-page-node-id="AYT9sAYQIYjSe9cErEg36r">查看详细行程 →</div>
+      </div>
+    </a>
+
+    <!-- Day 7 -->
+    <a href="行程详情.html#day7" class="day-card d7" data-page-node-id="0I6PdL1JjDhb9XnHoXDVd3">
+      <div class="card-header" data-page-node-id="RibU2Lj4criduzpYTnHNTu">
+        <div class="card-badge" data-page-node-id="pnII5jUkLzQUd5jEh9IlNJ">DAY 7 · 10.7 周二</div>
+        <div class="card-title" data-page-node-id="H2YrGuIGQwgnakVlMTUWXY">厦门返程</div>
+      </div>
+      <div class="card-body" data-page-node-id="wqzan0dJpS7O9H1OUtiST8">
+        <div class="card-city" data-page-node-id="nRxRqDnqqQtNAMxuE3GKxf">厦门 → 高崎机场</div>
+        <div class="card-attractions" data-page-node-id="L0TRU2j4tV8VU41enBgvwZ">
+          📍 退房前往机场（15-20分钟）<br data-page-node-id="ya1XfTPopjVT7XyAfpqLA3">
+          📍 妹妹飞回新疆
+        </div>
+        <div class="card-food" data-page-node-id="9ySLmvCBFiXF3p48gNW7k2">
+          <span class="food-label" data-page-node-id="ZiysxAtfNVGBrBQU1AHixU">🍴 附近美食：</span>
+          SM城市广场早餐 · 浮屿大同鸭肉粥(¥18, 24h)
+        </div>
+        <div class="card-cta" data-page-node-id="mTvFhGmsU7DGr4eiDxiZKa">查看详细行程 →</div>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- ===== 美食地图简略版 ===== -->
+  <div class="food-section" data-page-node-id="qKqAyTUmdV0tY0iBUfVcz9">
+    <div class="fs-header" data-page-node-id="JYCvVvz4SOTbVb3J6hCCzc">
+      <h2 data-page-node-id="Q25TtYi87qtRwATKcEpjk8">🍜 四城美食速览</h2>
+      <p data-page-node-id="7pJsyODZRGCYcH6ctqB9jO">福州 · 平潭 · 泉州 · 厦门 — 正餐 / 小吃 / 甜品</p>
+    </div>
+    <div class="fs-body" data-page-node-id="9bMWqlAqoxQZvNfc1JPjaH">
+      <div class="food-city-grid" data-page-node-id="60YqO6nla3UpIkQd9BWFgi">
+
+        <div class="food-city-card" data-page-node-id="iRyhAiXvCWEtUC3Zl1PiZG">
+          <div class="fc-city" data-page-node-id="eoIDFtE8EgZco6WUZmYWXv">福州</div>
+          <div class="fc-cat meal" data-page-node-id="lTFcomO6JZDxNGKi6NoIVz">正餐</div>
+          <div class="fc-items" data-page-node-id="PU4tfhia5OBUyuvkbGBbSG">荔枝肉 · 醉排骨 · 南煎肝 · 红鲟饭 · 酱鸭</div>
+          <div class="fc-cat snack" data-page-node-id="NJxYTsWQ5cdrUOhKYvBFrt">小吃</div>
+          <div class="fc-items" data-page-node-id="mjk0VmG4xUwZ1RsPUNKUwH">肉燕 · 鱼丸 · 锅边糊 · 捞化 · 海蛎饼</div>
+          <div class="fc-cat sweet" data-page-node-id="IZ6IdFUeNNQDNBH3W1zrYk">甜品</div>
+          <div class="fc-items" data-page-node-id="xilXEQtUn0SJaD9vrgBCe8">芋泥 · 花生汤 · 马蹄糕</div>
+          <div class="fc-shop" data-page-node-id="b6KbOwhd0rs6vnh7kyTqX2">🔑 老药洲街觅食 · 文儒坊秉煖馆</div>
+        </div>
+
+        <div class="food-city-card" data-page-node-id="hd8ddFCBTnzjoVlhunY5JI">
+          <div class="fc-city" data-page-node-id="WIWCMNhgbbEcWTGENpqL9q">平潭</div>
+          <div class="fc-cat meal" data-page-node-id="VdOblQ6o1fwHUSFtLW4mNU">正餐</div>
+          <div class="fc-items" data-page-node-id="IT3mEliYJl8Z1X2JiYAWLG">金鲟糯米饭 · 八珍炒糕 · 海鲜砂锅粥</div>
+          <div class="fc-cat snack" data-page-node-id="laZtDl9cke01kih24S9MB2">小吃</div>
+          <div class="fc-items" data-page-node-id="dz9Esw40wFsu6thzo9Vi6O">时来运转 · 天长地久 · 海蛎饼 · 茹粉结 · 鱼丸</div>
+          <div class="fc-cat sweet" data-page-node-id="K0BD2hAA1vI589IbR1yt8I">甜品</div>
+          <div class="fc-items" data-page-node-id="d6XWcFHqfMTINSuBWsI2Vv">草燕冻</div>
+          <div class="fc-shop" data-page-node-id="GL5ALvIPLw5OGqoKYKxzVO">🔑 潭城镇老店 · 北港村边逛边吃</div>
+        </div>
+
+        <div class="food-city-card" data-page-node-id="yB5gaP5hiN2PSSF1Tr2DE0">
+          <div class="fc-city" data-page-node-id="OV6TbJtRXTwaNciBwuVy80">泉州</div>
+          <div class="fc-cat meal" data-page-node-id="hpsAZ6FTCdhppXlMnlYLx5">正餐</div>
+          <div class="fc-items" data-page-node-id="7IeWnG4BScJBsD4AAB2Mjh">姜母鸭 · 牛肉羹 · 卤牛排 · 酱油水海鱼</div>
+          <div class="fc-cat snack" data-page-node-id="uMqHrQNEUuPhv5BTqxKnCJ">小吃</div>
+          <div class="fc-items" data-page-node-id="laQpv78rHS3pzQewaZcDkh">面线糊 · 土笋冻 · 润饼 · 烧肉粽 · 炸五香</div>
+          <div class="fc-cat sweet" data-page-node-id="H48RyrBAX4iKxjHZSgdl5j">甜品</div>
+          <div class="fc-items" data-page-node-id="JSQ2zl7iAxjFf76aoaAWu2">石花膏 · 四果汤</div>
+          <div class="fc-shop" data-page-node-id="gKhsfModGUkLeMRqrVqX3G">🔑 西街一路吃 · 涂门街正餐</div>
+        </div>
+
+        <div class="food-city-card" data-page-node-id="ub8xMxeCawMbotPTLqeUeh">
+          <div class="fc-city" data-page-node-id="oos3eDYV980PnX8xKdJHxK">厦门</div>
+          <div class="fc-cat meal" data-page-node-id="wG2qVRHGSQ0t51CfXtrbEx">正餐</div>
+          <div class="fc-items" data-page-node-id="W8i1BqEmH8CUVY0iN4LwPy">沙茶面 · 姜母鸭 · 冬粉鸭 · 白灼章鱼</div>
+          <div class="fc-cat snack" data-page-node-id="0c8DnvY6LKqMqka8nlcFF6">小吃</div>
+          <div class="fc-items" data-page-node-id="SEsoyU8xpgI9C9u1CH6Uoe">海蛎煎 · 土笋冻 · 炸五香 · 烧肉粽 · 芋包</div>
+          <div class="fc-cat sweet" data-page-node-id="YCirF9ligJRCROBbbTSyql">甜品</div>
+          <div class="fc-items" data-page-node-id="UBC3da7fEstturqodU66bs">花生汤 · 麻糍 · 满煎糕 · 四果汤</div>
+          <div class="fc-shop" data-page-node-id="sa6HUXA0tJsZ7WHACPS1wt">🔑 八市小吃街 · 集美石鼓路</div>
+        </div>
+
+      </div>
+      <div class="food-cta" data-page-node-id="i478sLWHo4DxATe11jtP2J">
+        <a href="福建四城美食地图.html" data-page-node-id="s6XHDMIdEZDylbOqErHa53">查看完整美食地图（含店铺地址/价格/分店信息）→</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Quick Links ===== -->
+  <div class="quick-links" data-page-node-id="V2J7AOWPrQDHSAgSAMAYJq">
+    <a href="行程详情.html" class="quick-link" data-page-node-id="COGW4LroYwJiDp7T3KKSsI">
+      <div class="ql-icon" data-page-node-id="fKf5VBKVT17MEWMXztRzGT">📋</div>
+      <div class="ql-title" data-page-node-id="yOvaPVVjj9ju3gZOXPvgAn">详细行程（含美食标注）</div>
+      <div class="ql-desc" data-page-node-id="WitI8uqvFVuMiGA2KfvqQ4">7天时间线 + 交通路线 + 附近美食</div>
+    </a>
+    <a href="福建四城美食地图.html" class="quick-link" data-page-node-id="aiTbUFByyDHy7JzQ3cVx7x">
+      <div class="ql-icon" data-page-node-id="0SoeBpKWNM61RBMhmkYBiY">🍜</div>
+      <div class="ql-title" data-page-node-id="4hdc9udyEUaiDmDrqKmZfL">四城美食地图</div>
+      <div class="ql-desc" data-page-node-id="bCqhQyyKtfUHKdodqzrIxE">正餐/小吃/甜品分类 + 店铺推荐</div>
+    </a>
+    <a href="国庆福建旅游规划.html" class="quick-link" data-page-node-id="BtYMZZ4TlBgUJpYWyKexqh">
+      <div class="ql-icon" data-page-node-id="iQaKrPo2DomDd8MexMKuGO">📄</div>
+      <div class="ql-title" data-page-node-id="xpE1pqNavtVgASHqRpB2er">原始完整版规划</div>
+      <div class="ql-desc" data-page-node-id="XYFhHhvw245UAi60fvBnDo">含景点替换/避人攻略/费用表</div>
+    </a>
+  </div>
+
+</div>
+
+<div class="footer" data-page-node-id="D2dGfvrXT2zyGbCQSwzyaH">
+  <p data-page-node-id="6H5JMdvYpH2kDUEsC4NSuN">国庆福建七日游 · 福州→平潭→泉州→厦门</p>
+  <p data-page-node-id="OT0BWAOiTaCk2KhJ6JzNAO">10.1-10.7 | 2026国庆假期</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="mOr2EgwWiXZY9rQ2jxBzXH">
+<head data-page-node-id="WJhX9TFicbs4TZYE2T9HuB">
+<meta charset="UTF-8" data-page-node-id="6GcmnGARXwH3JoWkWIzEVn">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="DeKIxl0WGDmJ2VP4cdrlcE">
+<title>详细行程 · 国庆福建七日游（含美食标注）</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f5f0e8; color: #2c2c2c; line-height: 1.8;
+  }
+  .container { max-width: 920px; margin: 0 auto; padding: 0 20px; }
+
+  /* Top Nav */
+  .top-nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.95); backdrop-filter: blur(8px);
+    border-bottom: 1px solid #e0d6c8; padding: 10px 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 8px;
+  }
+  .top-nav .nav-left { display: flex; gap: 6px; flex-wrap: wrap; }
+  .top-nav .nav-left a {
+    font-size: 12px; padding: 4px 12px; border-radius: 16px;
+    background: #f0ece4; color: #555; text-decoration: none; transition: background 0.15s;
+  }
+  .top-nav .nav-left a:hover { background: #e0d6c8; }
+  .top-nav .home-link {
+    font-size: 13px; color: #2d6a9f; text-decoration: none; font-weight: 600;
+  }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #1a3c5e 0%, #2d6a9f 50%, #3a8dbc 100%);
+    color: #fff; padding: 40px 20px 36px; text-align: center; position: relative; overflow: hidden;
+  }
+  .hero::before { content: ''; position: absolute; top: -40%; right: -15%; width: 400px; height: 400px; background: rgba(255,255,255,0.05); border-radius: 50%; }
+  .hero h1 { font-size: 28px; margin-bottom: 6px; position: relative; z-index: 1; }
+  .hero .subtitle { font-size: 14px; opacity: 0.9; position: relative; z-index: 1; }
+
+  /* Day Section */
+  .day-section { background: #fff; margin: 24px 0; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 20px rgba(0,0,0,0.06); scroll-margin-top: 56px; }
+  .day-header { padding: 24px 28px 16px; color: #fff; }
+  .day-header .day-badge { display: inline-block; font-size: 12px; font-weight: 600; padding: 3px 12px; background: rgba(255,255,255,0.2); border-radius: 16px; margin-bottom: 8px; }
+  .day-header h2 { font-size: 22px; margin-bottom: 4px; }
+  .day-header .date-info { font-size: 13px; opacity: 0.85; }
+
+  .d1 .day-header { background: linear-gradient(135deg, #2d6a9f, #3a8dbc); }
+  .d2 .day-header { background: linear-gradient(135deg, #1a7a5e, #2d9b78); }
+  .d3 .day-header { background: linear-gradient(135deg, #2d6a9f, #4a8db8); }
+  .d4 .day-header { background: linear-gradient(135deg, #8b4a8e, #b068b3); }
+  .d5 .day-header { background: linear-gradient(135deg, #c4661f, #e08a3c); }
+  .d6 .day-header { background: linear-gradient(135deg, #d4733e, #e8945a); }
+  .d7 .day-header { background: linear-gradient(135deg, #555, #777); }
+
+  .timeline { padding: 20px 28px 28px; }
+  .time-block { display: flex; gap: 16px; padding: 14px 0; border-bottom: 1px dashed #eee; }
+  .time-block:last-child { border-bottom: none; }
+  .time-block .time { flex-shrink: 0; width: 70px; font-weight: 700; font-size: 13px; color: #d4733e; padding-top: 2px; }
+  .time-block .content { flex: 1; }
+  .time-block .content h4 { font-size: 15px; color: #1a3c5e; margin-bottom: 4px; }
+  .time-block .content p { font-size: 13px; color: #555; margin-bottom: 6px; }
+
+  .tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 4px; margin: 2px 4px 2px 0; }
+  .tag-transport { background: #e8f4fd; color: #1a6db8; }
+  .tag-food { background: #fff3e0; color: #c4710a; }
+  .tag-attraction { background: #e8f5e9; color: #2e7d32; }
+  .tag-cost { background: #f3e5f5; color: #7b1fa2; }
+
+  .route-line { background: #f8fbff; border: 1px solid #d0e3f0; border-radius: 10px; padding: 10px 14px; margin: 8px 0; font-size: 12px; color: #1a3c5e; }
+
+  .restaurant-card { background: #fffaf5; border: 1px solid #f0e0d0; border-radius: 10px; padding: 14px 16px; margin: 10px 0; }
+  .restaurant-card .rname { font-size: 14px; font-weight: 700; color: #c4710a; margin-bottom: 6px; }
+  .restaurant-card .rdishes { font-size: 12px; color: #666; margin-bottom: 3px; }
+  .restaurant-card .rprice { font-size: 13px; color: #d4733e; font-weight: 600; }
+  .restaurant-card .raddr { font-size: 11px; color: #999; margin-top: 4px; }
+
+  /* Food Nearby Box - the new integration element */
+  .food-nearby {
+    background: #f0faf4; border: 1px solid #a5d6a7; border-left: 4px solid #2e7d32;
+    border-radius: 0 10px 10px 0; padding: 12px 16px; margin: 10px 0;
+  }
+  .food-nearby .fn-title { font-size: 13px; font-weight: 700; color: #1b5e20; margin-bottom: 8px; display: flex; align-items: center; gap: 4px; }
+  .food-nearby .fn-item { font-size: 12px; color: #444; padding: 3px 0; line-height: 1.7; }
+  .food-nearby .fn-item .fn-shop { font-weight: 600; color: #2e7d32; }
+  .food-nearby .fn-item .fn-dish { color: #c4710a; }
+  .food-nearby .fn-item .fn-price { color: #d4733e; font-weight: 600; }
+  .food-nearby .fn-item .fn-branch { font-size: 10px; color: #999; }
+
+  .info-box { background: #f0f7ff; border-left: 4px solid #2d6a9f; padding: 10px 14px; border-radius: 0 8px 8px 0; margin: 8px 0; font-size: 12px; color: #444; }
+  .warn-box { background: #fff8f0; border-left: 4px solid #e8945a; padding: 10px 14px; border-radius: 0 8px 8px 0; margin: 8px 0; font-size: 12px; color: #664; }
+  .swap-box { background: #f0fff4; border-left: 4px solid #2e7d32; padding: 10px 14px; border-radius: 0 8px 8px 0; margin: 8px 0; font-size: 12px; color: #336; }
+
+  .back-top { text-align: center; margin: 20px 0; }
+  .back-top a { font-size: 13px; color: #2d6a9f; text-decoration: none; }
+  .back-top a:hover { text-decoration: underline; }
+
+  .footer { text-align: center; padding: 30px 20px 40px; color: #aaa; font-size: 12px; }
+
+  @media (max-width: 600px) {
+    .time-block { flex-direction: column; gap: 4px; }
+    .time-block .time { width: auto; }
+    .timeline { padding: 16px 16px 20px; }
+  }
+</style>
+</head>
+<body data-page-node-id="kSWN8996bKDHwBk4i6BkfQ">
+
+<!-- ===== TOP NAV ===== -->
+<div class="top-nav" data-page-node-id="ihW30YtOeDEfw0CgbSViAo">
+  <div class="nav-left" data-page-node-id="63qlc9MpbQPBkgRs2CiZSu">
+    <a href="#day1" data-page-node-id="uVWimRm5Jhhn4qwkWhRPtR">Day1 福州</a>
+    <a href="#day2" data-page-node-id="ZTQtMXK4832mzgl97ciKvk">Day2 平潭</a>
+    <a href="#day3" data-page-node-id="C5JbKiW8nv1omiNLWiAuDP">Day3 福州→泉州</a>
+    <a href="#day4" data-page-node-id="xYXBJHNbCsm7T9QdYUYkiv">Day4 泉州</a>
+    <a href="#day5" data-page-node-id="JQm7lhV7IcfBq8YbZEnOCg">Day5 厦门</a>
+    <a href="#day6" data-page-node-id="lJHSLeedT4Jgpr9HWt6CEI">Day6 鼓浪屿+集美</a>
+    <a href="#day7" data-page-node-id="RbbivTfIMkF8K7zOLRlq3B">Day7 返程</a>
+  </div>
+  <a href="index.html" class="home-link" data-page-node-id="6eWvXT3HvL7aEYfEv7cuCb">← 返回首页</a>
+</div>
+
+<!-- ===== HERO ===== -->
+<div class="hero" data-page-node-id="oUQRE5C4yM2atdqI5Sf4Gf">
+  <h1 data-page-node-id="NiiOP7ueBZfalhuFHsrCPu">📋 详细行程（含美食标注）</h1>
+  <p class="subtitle" data-page-node-id="gaXZ8CfU3iGjxAYIbdLHcE">7天时间线 + 交通路线 + 景点附近美食推荐</p>
+</div>
+
+<div class="container" data-page-node-id="al8olBii8tL4PHAtwwlFyA">
+
+<!-- ============================= DAY 1 ============================= -->
+<div class="day-section d1" id="day1" data-page-node-id="KVwvQlnG9hCGiECYVcgJSl">
+  <div class="day-header" data-page-node-id="DphoOsMR95Oxte8LFzDUxU">
+    <span class="day-badge" data-page-node-id="VnMlyKy8mxzVhTNkEupexF">DAY 1 · 10.1 周三</span>
+    <h2 data-page-node-id="EJu3fumxV0OdpMUj1axUeS">福州市区</h2>
+    <div class="date-info" data-page-node-id="5V2bK3o8TRgIbS5VwIJ8Wn">住宿：国宜酒店（盘屿地铁站·仓山区）| 15:00抵达福州</div>
+  </div>
+  <div class="timeline" data-page-node-id="DQJEBAUykfOavw8Lca062Y">
+
+    <div class="time-block" data-page-node-id="dcCWMasjZp62JsLOGDqrjh">
+      <div class="time" data-page-node-id="eUtBguZPFNklO9bFCwtYW2">15:00</div>
+      <div class="content" data-page-node-id="fBwZYhPo5O2QGk4VYFbpNN">
+        <h4 data-page-node-id="n7lpoeDMGuepwIpYXc7Efk">抵达福州，入住国宜酒店</h4>
+        <p data-page-node-id="X79zSgh1mwcSb2ONeY45Wa">国宜酒店（海峡奥体中心·盘屿地铁站店），仓山区，地铁5号线盘屿站。</p>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="EH6t3mVGxPZksGTxm1ue4C">
+      <div class="time" data-page-node-id="RSzEyODGGP8l8lK1Bveq9W">15:30</div>
+      <div class="content" data-page-node-id="3lu7miat0okN22XDN3kQxA">
+        <h4 data-page-node-id="Ha4Yq5YERzwAHL7caAPwG5">打车前往三坊七巷 <span class="tag tag-transport" data-page-node-id="fIStPjpr2w0lBJOIKFzMJe">打车 25-30分钟 ¥30-35</span></h4>
+        <div class="route-line" data-page-node-id="ZXObAxaRuM49pfkH3yDSA3">📍 国宜酒店（盘屿站）→ 打车过江 → 三坊七巷南后街</div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="0lrXqNhtmyiVHng5K6knsg">
+      <div class="time" data-page-node-id="66uxK3zdQaLdvPY5ayhCUp">16:00</div>
+      <div class="content" data-page-node-id="SSqynhoBGmORIElm0bnWr3">
+        <h4 data-page-node-id="GxTMqnqu7UsFyzbdk94P5q">三坊七巷漫步 <span class="tag tag-attraction" data-page-node-id="lDOI0iau59yUnwkrcX1wgY">免费</span></h4>
+        <p data-page-node-id="xQ3J3XFOExiUmLBHJIqU1X">从南后街北口进入，穿行郎官巷、塔巷、黄巷。白墙黛瓦明清坊巷。16:00到达正好避开10-16点高峰。</p>
+        <div class="swap-box" data-page-node-id="dpkc5MFdQZnF2AP1dgIiU7">🔄 想更清净可去旁边的<strong data-page-node-id="AFfroK8HrpAdYsRMjqL7wi">朱紫坊&芙蓉园</strong>，人流只有三坊七巷的1/10。</div>
+
+        <div class="food-nearby" data-page-node-id="mA6teLTznhmeMs9H09NtDE">
+          <div class="fn-title" data-page-node-id="BzKFZYcuG1AGHH4xJENt0R">🍴 三坊七巷附近美食（步行可达）</div>
+          <div class="fn-item" data-page-node-id="83z9j7HGMAJmiIKeWjuNNO"><span class="fn-shop" data-page-node-id="eoRvdf7inD5s93tYOIYx0i">秉煖馆店</span>（文儒坊52号，三坊七巷内安静小店）— <span class="fn-dish" data-page-node-id="OPOJdCCvGnecl4dx6Wq49B">鱼丸</span> 鱼肉:粉=8:2手工包馅 ¥19 · <span class="fn-dish" data-page-node-id="ABHElNBjSYK1WAvaxPnHlL">红糟番鸭粉干</span> ¥19 <span class="fn-branch" data-page-node-id="LV5L83YzG9XRGicPdmV9C9">| 无分店·国庆人少</span></div>
+          <div class="fn-item" data-page-node-id="R7GEyx58qZ4TezbTowCbEN"><span class="fn-shop" data-page-node-id="NRkDyoAOUTTYqglwdzkA3u">同利肉燕老铺</span>（南后街98号）— <span class="fn-dish" data-page-node-id="4VU6CGGEKYFNOQxMoomdla">扁肉燕/燕丝</span> 五代传承"肉包肉" ¥24 <span class="fn-branch" data-page-node-id="wedreSZeaGwqLRJQWQ2kQG">| 有分店（老药洲社区老店更便宜）</span></div>
+          <div class="fn-item" data-page-node-id="MXqiOe7Pp0VHsSGF0yHB5W"><span class="fn-shop" data-page-node-id="PRiOir6mxZpVZtQCeLNLWM">安泰楼</span>（吉庇巷1号，近三坊七巷）— <span class="fn-dish" data-page-node-id="VgGElFT7YQceFLObymSEK3">锅边糊/海蛎饼/芋泥/荔枝肉</span> 一站式福州小吃+闽菜 ¥89 <span class="fn-branch" data-page-node-id="f65jONvXlcUD2KkZJH4kdc">| 有分店</span></div>
+          <div class="fn-item" data-page-node-id="OYHIporWPDEHV94pP12OAs"><span class="fn-shop" data-page-node-id="WzFdC3Ak7vqoAyWmnldOEP">永和鱼丸</span>（三坊七巷）— <span class="fn-dish" data-page-node-id="1YRZtHuqhUxugKHvwUgry9">鳗鱼丸/鲨鱼丸</span> 包心带馅 ¥12 <span class="fn-branch" data-page-node-id="17eUuyaQzNxPknWp3nbj12">| 有分店</span></div>
+          <div class="fn-item" data-page-node-id="v9hqxjtHsbXVqAhSuBfylu">💡 追求性价比去<strong data-page-node-id="Y52X9vb59UdeZdUQaOu5pD">老药洲街</strong>（打车10分钟）：忠惠酱鸭¥23 + 没牙伯花生汤¥15，社区价格便宜30-50%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="2MZHLdzMkW7RyPpcEGdc1b">
+      <div class="time" data-page-node-id="ouRE85mOyG39SkRQ8ibNfV">18:00</div>
+      <div class="content" data-page-node-id="pvrsRA5xnXHnILNhytNpE9">
+        <h4 data-page-node-id="BFpMjHfBB7EhHYZ2xoATZ8">打车前往烟台山 <span class="tag tag-transport" data-page-node-id="n5f8RgB5OB1COeo5dgpPxt">打车 15-20分钟 ¥20</span></h4>
+        <p data-page-node-id="S0ufHVAl1gjmPsOlmWKll7">烟台山和国宜酒店同在仓山区，回酒店只需15-20分钟。</p>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="BYptcuqXHgr6FsX5ydrSac">
+      <div class="time" data-page-node-id="IavwKFL8sdZuCiVOP66sIZ">18:20</div>
+      <div class="content" data-page-node-id="VNVyo0cFlB3kiRDUCF58G3">
+        <h4 data-page-node-id="54PIeYYEXvXDuMPf5z6Xd8">晚餐：南马唐·鲜作闽南菜（烟台山店）<span class="tag tag-food" data-page-node-id="dYsDMCVcpZA13MyHNQeUrD">必吃</span></h4>
+        <div class="restaurant-card" data-page-node-id="uHsWQETKJFxaLImcXLIO8r">
+          <div class="rname" data-page-node-id="cvd3ezVhtv2iJjakYuqYFP">🍚 南马唐·鲜作闽南菜（烟台山店）</div>
+          <div class="rdishes" data-page-node-id="O2qgQSTzoPkNWtzA4ZvltS">① 熟醉蟹 ~¥68 ② 沙茶牛杂锅 ~¥58 ③ 蟹黄豆腐 ~¥38 ④ 闽南小吃拼盘 ~¥42 ⑤ 海鲜粥 ~¥48 ⑥ 姜母鸭 ~¥88</div>
+          <div class="rprice" data-page-node-id="EZOdRNTG0zYtHiJ5FFEUxJ">人均约 ¥120-150</div>
+          <div class="raddr" data-page-node-id="iXEyxhSAHSlwp5YuBqHY7y">📍 烟台山二期，4层独栋 | 国庆建议当天上午电话预约</div>
+        </div>
+
+        <div class="food-nearby" data-page-node-id="3v8XgCwAGB5YVPYVDY0MdU">
+          <div class="fn-title" data-page-node-id="TYaWQRHL0toAyIMDBCKbmp">🍴 烟台山附近其他美食</div>
+          <div class="fn-item" data-page-node-id="58ZYmOaoxOHfBLHcUUdQsP"><span class="fn-shop" data-page-node-id="07WraZblCCOgLIopuPCHUN">没牙伯花生汤</span>（老药洲街，打车10min）— <span class="fn-dish" data-page-node-id="UZkGZAi6fJx1oGBAPw8QhU">花生汤/芋泥/糯米饭</span> ¥15 <span class="fn-branch" data-page-node-id="GDJLVN54asj1LXNbsZVbAB">| 无分店·数十年街坊老店</span></div>
+          <div class="fn-item" data-page-node-id="VgRYJbjvocgawF7qXKLEjE"><span class="fn-shop" data-page-node-id="EoqyCqseGOyDXwzx2kIM1O">忠惠酱鸭捞化</span>（老药洲62号）— <span class="fn-dish" data-page-node-id="ny6FaySkbJgADhSTooC5e2">酱鸭半只¥40 + 拌面¥8</span> <span class="fn-branch" data-page-node-id="HB6RCERT1FoT6SxTGQjoDA">| 无分店</span></div>
+          <div class="fn-item" data-page-node-id="GhpEQjCsbzWkgk3bZnOnwt"><span class="fn-shop" data-page-node-id="6gJbCFhHa5GMdFH6sfNREk">广达眼镜炖罐</span>（广达路88号）— <span class="fn-dish" data-page-node-id="vizuDWIJ2RfbhsjVhvLVlk">骨髓筒骨¥18 + 拌粉¥8</span> <span class="fn-branch" data-page-node-id="kttzHFBAWk3u7sOu9D6lU1">| 无分店·十几年路边起家</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="w4VsjEFeFemIF8Bf7RTyl3">
+      <div class="time" data-page-node-id="gSPMklKr7Hx4fVn3dZ4LAM">19:30</div>
+      <div class="content" data-page-node-id="fGExakMn3IVb9QSTrhR2Vx">
+        <h4 data-page-node-id="y4KF4HSlWlGFHw9iBwL0Pv">烟台山夜游 <span class="tag tag-attraction" data-page-node-id="TAyQUKS6GdUqt2GWmEBq05">免费</span></h4>
+        <p data-page-node-id="KyFBTG5lDU7NkApuetED8t">饭后漫步：乐群路洋楼群 → 烟山亭观景台（俯瞰闽江夜景）→ 独立咖啡馆。烟台山本身是福州避人景点，国庆比三坊七巷人少很多。</p>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="PbFetg7US04KnJqsgM3PWh">
+      <div class="time" data-page-node-id="wkjaOuxf4CbdSkt3nJT8JN">21:00</div>
+      <div class="content" data-page-node-id="oGiXn3so0fOgyJwuUEqisD">
+        <h4 data-page-node-id="rgP2FAb6Hzx58NJGLglDLm">打车回酒店 <span class="tag tag-transport" data-page-node-id="tPzs97OElaeJB95JCcIbaU">打车 15-20分钟 ¥20-25</span></h4>
+        <p data-page-node-id="pCpdZijJcx500yNqVcITrD">烟台山和国宜酒店同在仓山区，打车很快。</p>
+        <div class="info-box" data-page-node-id="h6mSLrEOq1Pzuw22oJCbfY">🎭 可选：福立社喜剧（万象九宜城店）脱口秀，¥120-280，"福立社"小程序查排期。从酒店打车约20分钟。</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================= DAY 2 ============================= -->
+<div class="day-section d2" id="day2" data-page-node-id="QJgbdeOMyQQflkzxyX6BvY">
+  <div class="day-header" data-page-node-id="GUmOIOhChzYvFDyaCkQf99">
+    <span class="day-badge" data-page-node-id="SEXBY9edsvBj1FLnBot5Ii">DAY 2 · 10.2 周四</span>
+    <h2 data-page-node-id="i4emKBUTXHTrsYCEYT3r7f">平潭岛（晚归版）</h2>
+    <div class="date-info" data-page-node-id="ly9wU72sQYJen68fwR5Ro6">住宿：国宜酒店（福州）| 高铁往返福州南站 + 电动车环岛 | 看日落再走</div>
+  </div>
+  <div class="timeline" data-page-node-id="sC0JtEXvwAeef3EF928RxJ">
+
+    <div class="time-block" data-page-node-id="A9YRMUxCPJE8ReAeR7qcOG">
+      <div class="time" data-page-node-id="q9Ff4wBCqmpWlpl5ZBCAJE">06:30</div>
+      <div class="content" data-page-node-id="JuYWFBPbUjUjfn0lLuXhvD">
+        <h4 data-page-node-id="mK9khHi1TKdLPGxe9N2GHb">前往福州南站 <span class="tag tag-transport" data-page-node-id="WrFibVbVRkFI1qi8xpH0Nc">打车15min ¥20 或 地铁5号线8站</span></h4>
+        <div class="route-line" data-page-node-id="hqLn953SVJaI1bTo0LOuU9">📍 国宜酒店 → 盘屿站(5号线) → 福州南站</div>
+        <div class="food-nearby" data-page-node-id="0LLcQVrV7e7mVe8IOSjosu">
+          <div class="fn-title" data-page-node-id="iKWp14UvnGnxIDp1vnDn6H">🍳 出发前早餐（酒店附近）</div>
+          <div class="fn-item" data-page-node-id="Ev32krMCbUm01ViXVlQn57">酒店附近吃<strong data-page-node-id="wD4Lj5sV1Rt7dyghrQ5JLX">锅边糊</strong>(¥8) + <strong data-page-node-id="NtGDj6dPnJHeozp2Pok35l">海蛎饼</strong>(¥5)，福州早餐标配</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="omJGMMClURDqfyP3v5S3lx">
+      <div class="time" data-page-node-id="yzyK7yFK7nnHGDOLC1Ddgz">07:52</div>
+      <div class="content" data-page-node-id="xHpynKUumUIRgCorCPAd1r">
+        <h4 data-page-node-id="vBAk7zIOKoAOSW1QV7l3nm">高铁：福州南→平潭 <span class="tag tag-transport" data-page-node-id="ODH6VgApbUjIdeeSr6hTaA">D6271 · 30分钟 · 二等座¥42</span></h4>
+        <div class="route-line" data-page-node-id="HMYoE0Gm0npIYDGqjHQy6I">🚄 D6271 福州南站 07:52 → 平潭站 08:20 | 二等座¥42</div>
+        <div class="warn-box" data-page-node-id="Ij37CitgOt7i5nEDDyutFB">⚠️ 国庆提前14天12306抢票！备选：08:54 D9987 / 09:35 D6277</div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="d253zzI1xSb7t3HtHvQmHy">
+      <div class="time" data-page-node-id="nXQA1O7Rtw4sFVulD5ZMgV">08:30</div>
+      <div class="content" data-page-node-id="bncDGvCJBMBW29w2A7crut">
+        <h4 data-page-node-id="M8g84f8phgkdnNCivUuU01">租电动车 <span class="tag tag-cost" data-page-node-id="ZhygUJV3vHhGY5kjsgxbXt">国庆约¥100-120/天</span></h4>
+        <p data-page-node-id="ObQNXirEDq3OKTdlvWsGnF">平潭高铁站门店，国庆约¥100-120/24h（淡季¥58），含头盔无需驾照，续航100-160km。</p>
+        <div class="warn-box" data-page-node-id="6hoQTEXSVAATpjuWHX8JS7">⚠️ 国庆租车紧张！出发前1-2天电话预约。</div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="pCv8zTcHAIsAqMAvlrCu5Q">
+      <div class="time" data-page-node-id="yhQi8Eds7Y1Y8IFcBAdGfT">09:00</div>
+      <div class="content" data-page-node-id="YtVEm6qAlbzZcoEHkIhNvt">
+        <h4 data-page-node-id="FU7VUHUBuiZcVtQBmmO0Fy">北线骑行Part1：仙人井→北港村</h4>
+        <p data-page-node-id="DZ7WmrU7SiBGnQM4ke9IRA"><strong data-page-node-id="Y6S1lWrLCoFgGoJd7ouOCe">仙人井</strong>（东海仙境）<span class="tag tag-cost" data-page-node-id="ie53uGJiZlJAmq4Q8oOWv7">门票¥22/人</span>：海蚀地貌，43米深天然海蚀洞，约1小时。</p>
+        <p data-page-node-id="CFt2pB3xiawX22lWcjrhgz"><strong data-page-node-id="BZ6ViW5YsmTV2skAJZ30nc">北港村</strong> <span class="tag tag-attraction" data-page-node-id="kWdESKf7llU4Acl5iqvPae">免费</span>：石头厝文创村，手工作坊+咖啡店，停留40分钟。</p>
+        <div class="route-line" data-page-node-id="HD5C4Ln6waXFNTck2FVIJX">🛵 平潭站→(20min)→仙人井→(15min)→北港村</div>
+
+        <div class="food-nearby" data-page-node-id="I03xpd7OT8ADUd9TMTeZBm">
+          <div class="fn-title" data-page-node-id="le3aZRGc5eqNG8FGBSqFiP">🍴 北港村美食（边逛边吃）</div>
+          <div class="fn-item" data-page-node-id="JjNZEK7YO0nTeVOmtxpFoT"><span class="fn-shop" data-page-node-id="eEYMuEks1yukENHzelUbtg">阿嬷的灶咖</span>（北港村内）— <span class="fn-dish" data-page-node-id="bGQTvJrsEngQ490v2eVFm7">天长地久(油羹)</span> 柴火灶现炸，糯米皮裹红糖花生馅 ¥6/个 <span class="fn-branch" data-page-node-id="18aIwaTDp2Lw2oH3Tz0nxh">| 无分店·景区内</span></div>
+          <div class="fn-item" data-page-node-id="KvOXxP102QWm1ZU6OeMhE2"><span class="fn-shop" data-page-node-id="zOZrxpVeKmXfFdCcdpTDzO">北港方记海鲜楼</span>（北港村海边）— <span class="fn-dish" data-page-node-id="CvFFRf8zRRZ4cpNYNhWgUA">海鲜炒粉/清蒸午鱼/葱油油蛤</span> ¥80-100 <span class="fn-branch" data-page-node-id="lZNWj1Gdyag9iy1iFedjFC">| 海景餐厅·无分店</span></div>
+          <div class="fn-item" data-page-node-id="6oHIeZOJczVNs0BMt9XePC">💡 北港村逛文创村时顺手吃，不用专门跑。建议错峰11:30前午餐。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="R3c5zvXyNAUuS5jLlHKhE6">
+      <div class="time" data-page-node-id="J4c3xHgiUjrQRQ0OXlFQdu">11:30</div>
+      <div class="content" data-page-node-id="bYt53UmGVYOEPbormq2B3H">
+        <h4 data-page-node-id="g8o2704sh9BdrYAS0v9P0b">午餐 <span class="tag tag-food" data-page-node-id="V4zbqLygasxoYhLS6kZ9GM">必吃</span></h4>
+        <div class="restaurant-card" data-page-node-id="u9qu6fHdedS8ovUTS6hUK7">
+          <div class="rname" data-page-node-id="ozfwQ8EnclJRLlW6GKgWit">🍲 英姐海鲜砂锅粥</div>
+          <div class="rdishes" data-page-node-id="TtAHEbGUfmyrsABHlFBQMQ">海鲜砂锅粥（虾蟹贝类现熬）— 鲜甜全融进粥底</div>
+          <div class="rprice" data-page-node-id="DPPwS8qNpPTvCLYUW2bFBC">人均约 ¥50</div>
+          <div class="raddr" data-page-node-id="YnwxBq3sZJEHhg4sdDTAa1">📍 平潭城区</div>
+        </div>
+        <div class="restaurant-card" data-page-node-id="2mjFopGScVhd3V5hHE3Ncv">
+          <div class="rname" data-page-node-id="00tMpJyCRIa0Xk4EDg7aPO">🥟 十三妹咸米时店</div>
+          <div class="rdishes" data-page-node-id="KyUDMQ7Zpyl6mgyd60rpNR">时来运转(咸米时) — 央视《味道》认证，蘸秘制辣酱 ¥8/个 | 茹粉结汤 ¥10</div>
+          <div class="rprice" data-page-node-id="vLbRvTg5nHtaO4mTwZUMcY">人均约 ¥15</div>
+          <div class="raddr" data-page-node-id="do0CVNDPqK9ZAZ6ILHxuHM">📍 潭城镇 | 无分店</div>
+        </div>
+        <div class="food-nearby" data-page-node-id="SIe2zR4Qihi7B2xv6GKlmI">
+          <div class="fn-title" data-page-node-id="hcYdMMQYjW4psYCm2BrLe4">🍴 平潭城区其他选择</div>
+          <div class="fn-item" data-page-node-id="mJouDfvXSL6YhrflmVsPCz"><span class="fn-shop" data-page-node-id="7vFExY9ANH8RuHFrKbJeej">龙凤路一号海鲜面</span> — 份大量足，虾蟹贝铺满 ¥35 <span class="fn-branch" data-page-node-id="WAL4xiR8LyIGkW11Byj7po">| 无分店·一碗够两人分</span></div>
+          <div class="fn-item" data-page-node-id="EnVHgtVDjFYfSaGgSKxPQA"><span class="fn-shop" data-page-node-id="A3xcgKifm6VGcpFY1FZvdO">阿华小吃店</span>（潭城镇）— <span class="fn-dish" data-page-node-id="lEeXFWe7Z47nqiwMTOVd1K">茹粉结/平潭鱼丸</span> ¥10-12 <span class="fn-branch" data-page-node-id="XCC1wvOUEjYFpztfqciZ07">| 24小时营业</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="6AbOG7JgVNVyLCix66IAYG">
+      <div class="time" data-page-node-id="8avTdjUmoA3jYu7UymdG21">12:30</div>
+      <div class="content" data-page-node-id="xvPOF1YIzJ3SanCeHEgzM1">
+        <h4 data-page-node-id="pf4j6N24x3AoSDTh8CZwcT">北线骑行Part2：环岛路→镜沙→长江澳</h4>
+        <p data-page-node-id="WbOivq23Ti4CPlbXHvAyvd"><strong data-page-node-id="HQ4Tm8vuVfIkx2WBVWUHgi">北部生态廊道</strong> <span class="tag tag-attraction" data-page-node-id="sn3qefLSWGmT2D5stKOnEA">免费</span>：F3观景台玻璃栈道，S弯漫画公路。</p>
+        <p data-page-node-id="WfrloP5eQNoWDeBvl36BNn"><strong data-page-node-id="A7DQyRMEDkaUM4YLbbIzLh">长江澳风车田</strong> <span class="tag tag-attraction" data-page-node-id="0iP4NXe0HFj0bDqIz85mG1">免费</span>：白色风车+蓝色大海+细腻沙滩。</p>
+        <div class="route-line" data-page-node-id="dFqQsC2XhQpofVOCsJjFSn">🛵 北港村→(20min)→环岛路→(15min)→镜沙→(10min)→北部廊道→(15min)→长江澳</div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="JBqElXlxBIrRMuesCFZIj0">
+      <div class="time" data-page-node-id="H1nV5vPRxLvDWzE7WSGyro">16:30</div>
+      <div class="content" data-page-node-id="g7CGbvAaIWopzbA3bFBkMq">
+        <h4 data-page-node-id="DYECWzInHlnR7HXnf96VQA">南线加玩：猴研岛/68海里 <span class="tag tag-cost" data-page-node-id="wMPSE7Wz9bX9X09sFbtl1a">门票¥38/人</span></h4>
+        <p data-page-node-id="sfgN5aYjE4OtJ6I4qhEEqJ">精力旺盛从长江澳骑行南下到猴研岛。红白灯塔+"海峡之眼"透明观景台。</p>
+        <div class="swap-box" data-page-node-id="CgYr8oRNpbG3BMDDu1pxMR">🔄 不想去猴研岛可改为<strong data-page-node-id="sA7d6faQAHBDHCYYlv6GVh">坛南湾</strong>（免费海滩，沙更细人更少），坐鲸喜蓝眼泪咖啡看海。</div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="ZfPFGtyK01JOgYOxNd6R1H">
+      <div class="time" data-page-node-id="YuxTXGpWFwPF7o0UwYszEL">17:00</div>
+      <div class="content" data-page-node-id="LbC2dWIKr9PxqIh7lPDjT3">
+        <h4 data-page-node-id="nSoYMrXC9FpHEnZJpp3Xp2">🌅 长江澳看日落 <span class="tag tag-food" data-page-node-id="CStnNgEgasQBkPq3dcA8wl">精华</span></h4>
+        <p data-page-node-id="B5ZInNWQdMqtXgv0fn42Gn">10月日落约17:40-18:00。17:00-18:30是橘子海最浓时段。退潮后拍"风车倒影在沙滩"。</p>
+
+        <div class="food-nearby" data-page-node-id="78W1TZnuaEUylSgz48dDRH">
+          <div class="fn-title" data-page-node-id="zEkiQfBUOs76rhfGbEq311">🍴 长江澳看日落时顺手吃</div>
+          <div class="fn-item" data-page-node-id="8DQ4lUdrv7HNoIAJiX0b3O"><span class="fn-shop" data-page-node-id="TY51aD8dAwY33C7myeKUUp">长江澳路边摊</span> — <span class="fn-dish" data-page-node-id="hYJmtigNLkD65GQU78v5Nz">海蛎饼</span> 面朝风车田现炸，海蛎多到"溢壳" ¥5 <span class="fn-branch" data-page-node-id="zNS9OUzvEKRWko1uNGxBbm">| 路边摊·撒芹菜末更提鲜</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="xFj3uWi7MAZbgbvz0jgrWH">
+      <div class="time" data-page-node-id="QpeFMglsT2DhkdqHjFzm9t">18:15</div>
+      <div class="content" data-page-node-id="cpUMtC11em7VV3WqTqtym4">
+        <h4 data-page-node-id="BrDii6gaF0e4U2HSiD91J6">返程骑行+还车+晚餐</h4>
+        <p data-page-node-id="BfndeQpTJTgP35sD0Wev6u">从长江澳骑行回平潭站方向（约30-40分钟）。</p>
+        <div class="food-nearby" data-page-node-id="LkSr9FgDrUmbQ2QBBlkCqs">
+          <div class="fn-title" data-page-node-id="BBiKnG7uBWPsslr9FZPn1K">🍴 回程城区晚餐</div>
+          <div class="fn-item" data-page-node-id="oaOrtU3SC0PgrOuSVUjml5"><span class="fn-shop" data-page-node-id="ptIzStZT68eFJm45A44jM1">英姐海鲜砂锅粥</span> — 海鲜砂锅粥 ¥50-80/锅 <span class="fn-branch" data-page-node-id="GYDwdNnyDclrQNHeUctd5J">| 暖胃实惠</span></div>
+          <div class="fn-item" data-page-node-id="EPLYveKeDOGY2BCS7Bkkj4"><span class="fn-shop" data-page-node-id="7y32U3HUs5SE4eEyOPRSwC">龙凤路一号海鲜面</span> — 份量大 ¥35 <span class="fn-branch" data-page-node-id="urQt6DJNWR4gX7RJ4CI9FW">| 两人一碗够分</span></div>
+          <div class="fn-item" data-page-node-id="kRY2wi5EgcC5MnhO9VxwAl"><span class="fn-shop" data-page-node-id="BXih63CXPe9zMAUUKvgynO">阿华小吃店</span> — 茹粉结/鱼丸 ¥10-12 <span class="fn-branch" data-page-node-id="wEgOEJ86vn2zSkXDTx8Hr7">| 24h，深夜回站首选</span></div>
+          <div class="fn-item" data-page-node-id="sd17GkFKeXsfGMcBBmeJxK">🍧 甜品：<strong data-page-node-id="Zc2lVtyGhhhNBfXNgLaGOL">草燕冻</strong>（海坛古城/龙凤头甜品站）— 礁石草燕熬冻加蜂蜜 ¥8-12</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="LoLObLJyZtD8wVxHE699wC">
+      <div class="time" data-page-node-id="cgT5aD7grl7wxkkmuRUA8p">20:50</div>
+      <div class="content" data-page-node-id="E7hZDpR5TtStUKUs8kpSCF">
+        <h4 data-page-node-id="C8AMUHHMPQofPtVEEcWWeR">高铁：平潭→福州南（晚归）<span class="tag tag-transport" data-page-node-id="aiq6ZVK4Qjm7XkVvOCsb1r">D9974 · 39分钟 · ¥42</span></h4>
+        <div class="route-line" data-page-node-id="PvrfY0dI1hxKTboxz2CD38">🚄 D9974 平潭站 20:50 → 福州南站 21:29</div>
+        <p data-page-node-id="G1DX5D9VzujtL9N7WbJK9h"><strong data-page-node-id="KBG0l9qfamC4LWsLql1GWc">更晚备选：</strong>21:43 D6284 → 22:18（最晚一班，追日落党）</p>
+        <div class="info-box" data-page-node-id="eVB89CUmBDGxdlKeAaF5QG">💡 到福州南站后地铁5号线运行到23:00，盘屿站下车回酒店。或打车15分钟。</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================= DAY 3 ============================= -->
+<div class="day-section d3" id="day3" data-page-node-id="LXr9d95XzJxzPc2FF8JtBN">
+  <div class="day-header" data-page-node-id="HdwRwIw2P5KC9qpJAnPYwU">
+    <span class="day-badge" data-page-node-id="w0AmiapwLKzcnrkOTInyZa">DAY 3 · 10.3 周五</span>
+    <h2 data-page-node-id="jQ3mMHmldBu4BGJdbhJlSi">福州市区→泉州</h2>
+    <div class="date-info" data-page-node-id="3fr75Z3i4UPAtqIfFKXK1r">住宿：泉州水木春天（丰泽区）| 退房国宜酒店，晚班高铁赴泉州</div>
+  </div>
+  <div class="timeline" data-page-node-id="bnsFrR9LPVpUFnnXdw7uCZ">
+
+    <div class="time-block" data-page-node-id="TKpSDYPEeKyO7sS0ZUXIXf">
+      <div class="time" data-page-node-id="3XCxHyHpCP3fKCFEv7HBlA">08:00</div>
+      <div class="content" data-page-node-id="OpPScYzgKujRdTMgIu0WnE">
+        <h4 data-page-node-id="eeWiH1JhT2mWfGDJ5TOWpn">早餐+退房寄存行李</h4>
+        <div class="food-nearby" data-page-node-id="AhgTmYcANx577JbR0tuOje">
+          <div class="fn-title" data-page-node-id="YA0K5PhwzBsfNtkohUbjUs">🍳 酒店附近早餐</div>
+          <div class="fn-item" data-page-node-id="UZKgI5FyOv1zFrAF0GY1IH"><span class="fn-shop" data-page-node-id="dseL56eZuSyERdgUaEFfAD">柴火锅边</span> — <span class="fn-dish" data-page-node-id="LDHIPZULaFBYTzD1mredlm">锅边糊+三角糕</span> ¥8-10 <span class="fn-branch" data-page-node-id="eskqM467YSVFh32h7YoxBK">| 切大块保留酥脆边角</span></div>
+          <div class="fn-item" data-page-node-id="arFIZBjxNmqQUwTklrIAAq"><span class="fn-shop" data-page-node-id="uSjrAZXiwdhoJblR1Wxphf">忠惠酱鸭捞化</span>（老药洲62号）— <span class="fn-dish" data-page-node-id="kxkjdQzOJiD2IL4pmEkJnB">捞化(罗汉肉/海蛎) ¥15 + 拌面¥8</span> <span class="fn-branch" data-page-node-id="gQn5aVchGpzbC8W7tUA85A">| 无分店</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="tEgjFEMF3N6ObzIqkymets">
+      <div class="time" data-page-node-id="8Wq0SDfLqofekrbxXUouc2">09:00</div>
+      <div class="content" data-page-node-id="JXAEVlCTlkby55fNHOIS77">
+        <h4 data-page-node-id="IumjjotIroq3VGnmpVRWFG">打车前往上下杭 <span class="tag tag-transport" data-page-node-id="7FyYZuIOkE4seDhV6oaQ5z">打车 20-25分钟 ¥25-30</span></h4>
+        <div class="route-line" data-page-node-id="5K96adFM7YlXg8t2eZk6wJ">📍 国宜酒店（仓山区）→ 打车过江 → 上下杭</div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="ReGOXGfyLHbb2ADyEwSAi8">
+      <div class="time" data-page-node-id="v4kyGawwAqJAgEK7sVXuvV">09:20</div>
+      <div class="content" data-page-node-id="q3XF6EgZoZL3BbfDlJ6shG">
+        <h4 data-page-node-id="ZBXk7jhCZP7KxuaTMs5XpC">上下杭漫步 <span class="tag tag-attraction" data-page-node-id="76aUBdRnaz8KnOHYumR2DV">免费</span></h4>
+        <p data-page-node-id="tePWMgF6ebaNodg5qiHxnG">福州近代商业发源地，红砖仓库、老会馆、古河道。比三坊七巷人少，更有老福州味道。</p>
+        <p data-page-node-id="KgGUJFwbAA8wCmK52OlMAG"><strong data-page-node-id="B9ZGEZABXHqgxxB29JiMNt">路线：</strong>三捷河沿岸 → 古田会馆 → 采峰别墅 → 独立咖啡馆</p>
+
+        <div class="food-nearby" data-page-node-id="HVzAS4Rji7XIxkSliY4J8e">
+          <div class="fn-title" data-page-node-id="YGAM3HULy7ezXHgfGXGLTQ">🍴 上下杭/苍霞片区美食（步行可达）</div>
+          <div class="fn-item" data-page-node-id="JpW1UXA74l6bP98OhZD1qD"><span class="fn-shop" data-page-node-id="hNTkrkJdTMs1Nx7ebLtlwy">南港鱼丸店</span>（南园路苍霞新城，中平路）— <span class="fn-dish" data-page-node-id="iQrA6F7pO6MSaGkKJuGna7">炒兴化粉</span> 每份现炒锅气浓郁，配蒜头酱是灵魂 ¥18 | <span class="fn-dish" data-page-node-id="ZpFyiOfGz5FHjaTtfk9eJw">鱼丸汤</span> ¥10 <span class="fn-branch" data-page-node-id="6IP9MsBBhiBvPDZXdkKpwu">| 无分店·社区老店</span></div>
+          <div class="fn-item" data-page-node-id="Pi5uQrtcb1ZYVWdyCCZpcy"><span class="fn-shop" data-page-node-id="1bPtCU9Epk9OPO4KzaNfA0">江南红鱼汤</span>（洋中路176-68号，人民医院斜对面）— <span class="fn-dish" data-page-node-id="ec8FggV0mpiyYWxJAVsDlI">鱼滑鱼汤</span> 白鲨肉/鲨鱼皮/马鲛肉可选 ¥19 <span class="fn-branch" data-page-node-id="pG1PisQF5SiLrHoaKscf7C">| 无分店·近上下杭</span></div>
+          <div class="fn-item" data-page-node-id="BnROjMBj4ViRqIOO03IBqM">💡 逛完上下杭直接走过去吃，苍霞社区里的老店价格实在不宰客。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="nqlqQFRjMO6qvaSUl2UoKd">
+      <div class="time" data-page-node-id="okd7mmtWG2Y3ON4myccSsx">11:30</div>
+      <div class="content" data-page-node-id="kPEhHJGg2NAUCGpRcEQjEH">
+        <h4 data-page-node-id="9wi87zC1bdAYejoebgz0PM">打车前往兴仙饭店（马尾总店）<span class="tag tag-transport" data-page-node-id="W6H9ccMmMoiBpLbuObbrZn">打车 25-30分钟 ¥55-60</span></h4>
+        <div class="route-line" data-page-node-id="5lY74GYWPwcXHubcx5U4PC">📍 上下杭 → 打车往东 → 兴仙饭店（马尾区）</div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="IiDJB9evBkCAyw6gIMUgmS">
+      <div class="time" data-page-node-id="euRDLH8KZJ43Ytq6RXjHqG">12:00</div>
+      <div class="content" data-page-node-id="DNMo3y5scAO5kZW8RxrPEe">
+        <h4 data-page-node-id="J2myB9LkijqAsc4VaDuz0a">午餐：兴仙饭店·闽味海鲜（马尾总店）<span class="tag tag-food" data-page-node-id="SZEJTDe3EZgIecmshae5kC">必吃</span></h4>
+        <div class="restaurant-card" data-page-node-id="dA2PT763AdHs51MNBaQs0t">
+          <div class="rname" data-page-node-id="DYlAzYcFgvfy5P7zYQk2HK">🦞 兴仙饭店（马尾总店）</div>
+          <div class="rdishes" data-page-node-id="nnPNZTtSCh1QYAPAW1WvO6">① 招牌蒜香海鲜汇 ② 紫苏梅子急汁虾 ③ 荔枝肉 ④ 30年老陈卤面 ⑤ 椒盐酥炸水电鱼 ⑥ 手工黄歧提菜煎 ⑦ 家烧海杂鱼</div>
+          <div class="rprice" data-page-node-id="YqImrG5hpq7dqDcXs7ZxvF">人均约 ¥98</div>
+          <div class="raddr" data-page-node-id="1zabcKMEV1hEMmRGXSgVSG">📍 马尾区（马尾总店）| 上过必吃榜</div>
+        </div>
+        <div class="info-box" data-page-node-id="z4Hq4L89RaA1Ivnuo3sYHr">💡 两人点4-5道约¥200-250。节假日建议11:00前到。</div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="mzAT9YakqN2MywlHvObNyH">
+      <div class="time" data-page-node-id="4P68s9CBvHAdoGdMUIxh9w">13:30</div>
+      <div class="content" data-page-node-id="rl58qkINjjJ1KI17ta7z5Y">
+        <h4 data-page-node-id="BuNqWxuEj7DYqmv9aw2l7S">打车回酒店取行李 <span class="tag tag-transport" data-page-node-id="V7sZ7D6JJeIEOdrgvld4H0">打车 30分钟 ¥60</span></h4>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="TntmKah1hEedQFL0sYFrSC">
+      <div class="time" data-page-node-id="vPlbLHYGudvFAFKpePQVlx">14:30</div>
+      <div class="content" data-page-node-id="yXkGiP3feD9A5NqiMlwCFe">
+        <h4 data-page-node-id="72AMYjBz71QWKL139FG0FE">自由时间：福道森林步道 <span class="tag tag-attraction" data-page-node-id="myRDWjpY4C1MqYRXq7pdEV">免费</span></h4>
+        <p data-page-node-id="GA3gu1EEmFB3akcgHG0Ugu">19公里钢架镂空步道，金牛山入口离仓山区打车约15分钟。国庆几乎没人，绿荫遮蔽不晒。</p>
+        <div class="swap-box" data-page-node-id="2iVsMCNT24x2OcwMEuDf4J">🔄 不想走了可在东街口/三坊七巷买特产（肉燕礼盒¥45、茉莉花茶¥50-100），或回酒店休息。</div>
+        <div class="food-nearby" data-page-node-id="krshpgF1Gu3estsHBFhQdx">
+          <div class="fn-title" data-page-node-id="YOxSFySNIU0r6ZbigwyytH">🍴 福道/回程路上加餐</div>
+          <div class="fn-item" data-page-node-id="W0jOFG5nsYSYAFRT226STE"><span class="fn-shop" data-page-node-id="Jks0usB97u7p14D0plDILl">广达眼镜炖罐</span>（广达路88号）— <span class="fn-dish" data-page-node-id="QPDj2z9as94oUjGXTGMjYP">骨髓筒骨¥18 + 肉沫炖蛋¥12 + 拌粉¥8</span> <span class="fn-branch" data-page-node-id="wsTqaifxNKRuYBHUrUlGp3">| 无分店·仓山区过去方便</span></div>
+          <div class="fn-item" data-page-node-id="Mz0mlezSny5K0q6bEAD0vy"><span class="fn-shop" data-page-node-id="JCeriUmT0VTVXtStZMniUv">罗源湾海鲜</span>（学军路86号）— <span class="fn-dish" data-page-node-id="cpcR2ppk4BpGePLXf3OO7B">南煎肝/红糟鳗/红鲟饭</span> ¥100 <span class="fn-branch" data-page-node-id="1QDDmjcuBHa9XDlgLCR5OF">| 无分店·社区海鲜</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="2RtLglmzFKuK33Fvp8vxQC">
+      <div class="time" data-page-node-id="j1G6nHD5uMQnSbiOa5hgCA">16:30</div>
+      <div class="content" data-page-node-id="KCt3PaAn2BWRzDPGPtf4nE">
+        <h4 data-page-node-id="2N9pEo6eoWZeIF51GPOU02">打车前往福州南站 <span class="tag tag-transport" data-page-node-id="QuAFnWy1wixuWfks2oSpzT">打车15min ¥20 或 地铁5号线</span></h4>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="ZL21mgpEnAXkpmPhocGq8c">
+      <div class="time" data-page-node-id="P6jYdG8g2cEcZCYoGBqWIB">17:00~18:00</div>
+      <div class="content" data-page-node-id="IECTL3nytjUNrIHXYal4W3">
+        <h4 data-page-node-id="I804S9U8ukyLhZmzq5lNiz">高铁：福州南→泉州站（晚班）<span class="tag tag-transport" data-page-node-id="gMyZM0dKxlkncRopZrEsbQ">约1小时 · 二等座¥69</span></h4>
+        <div class="route-line" data-page-node-id="qEpZZj6VJBQo2TYC8oqvdV">🚄 福州南站 17:00~18:00发车 → 泉州站 约18:00~19:00到达 | 二等座¥69</div>
+        <div class="warn-box" data-page-node-id="c7wykBtnZSLUtqKfWmDJvf">⚠️ 具体车次以12306为准，提前14天抢。</div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="DF1WUrQXoDATTIC2OAqJA7">
+      <div class="time" data-page-node-id="01ujdi1AX8v7N7LDlCCif3">18:30~19:30</div>
+      <div class="content" data-page-node-id="mgkjSVCj4OluaTSsuW7kKT">
+        <h4 data-page-node-id="Hob09jHz15o1QhoHdlpyzP">抵达泉州站，打车前往水木春天 <span class="tag tag-transport" data-page-node-id="AIR8tjGLXrM1sZJHzNaMX1">打车 20-25分钟 ¥40</span></h4>
+        <div class="route-line" data-page-node-id="6E1Ov4JfAD0DsDxhUsGv7S">📍 泉州站 → 打车¥40 → 水木春天（丰泽区城东·华侨大学旁）</div>
+        <div class="food-nearby" data-page-node-id="B4C9ZATKcTkQxaNGoZB9fN">
+          <div class="fn-title" data-page-node-id="pJupodbJcZk9cWGCXINLa1">🍴 抵达泉州后宵夜（水木春天附近/城东片区）</div>
+          <div class="fn-item" data-page-node-id="J5D3s8EZeTsO96PfSRG9pV">华侨大学附近有学生街小吃，<strong data-page-node-id="RpecYqdDnUa63uQj8gtaBX">面线糊</strong>和<strong data-page-node-id="Dej7zrcYFDm0zp1DArROzF">烧肉粽</strong>是泉州人的夜宵标配</div>
+          <div class="fn-item" data-page-node-id="vvbko3x3ZEKE1NvBHo64oR"><span class="fn-shop" data-page-node-id="R9mfTadP89xLBIsRHHnaXK">好成财牛排馆</span>（涂门街，明天去关帝庙时路过）— <span class="fn-dish" data-page-node-id="mYnrnxzQ6LvHaHLrwmXAqt">牛肉羹/卤牛排</span> ¥25 <span class="fn-branch" data-page-node-id="rUcFVQClnBkkq5EPTjUf2u">| 有分店</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================= DAY 4 ============================= -->
+<div class="day-section d4" id="day4" data-page-node-id="T3124KCDpDJdsgRfOjaaJe">
+  <div class="day-header" data-page-node-id="bMrYAzj6pFDwtqPf8yjaKi">
+    <span class="day-badge" data-page-node-id="zcjriXZrynbMHr58H2Q28d">DAY 4 · 10.4 周六</span>
+    <h2 data-page-node-id="9peULbn28A6PCG3JUoOCGz">泉州一日游</h2>
+    <div class="date-info" data-page-node-id="GT1K7XDYlQnQAAtWoeZPaY">住宿：水木春天（丰泽区）| 西街簪花→开元寺→关帝庙→姜母鸭</div>
+  </div>
+  <div class="timeline" data-page-node-id="GIDXlof0athoylBaqnTkZV">
+
+    <div class="time-block" data-page-node-id="iYPG8IoCCRjLzDBDdmI9Dc">
+      <div class="time" data-page-node-id="IF67M0P98Q8ODnpn1fFWOq">08:00</div>
+      <div class="content" data-page-node-id="ogsGQWjmV69pl7LMgFEA7E">
+        <h4 data-page-node-id="cYyfYi7360Prw26vhSOkVN">打车前往西街 <span class="tag tag-transport" data-page-node-id="VD0b5YUCRR6RzTEUCqiwRI">打车 15-20分钟 ¥25-30</span></h4>
+        <div class="route-line" data-page-node-id="UJLn5cxiKUQjdHOz8LD6hc">📍 水木春天（丰泽城东）→ 打车 → 西街</div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="UgUUd3VB0Araj9ptRgghTe">
+      <div class="time" data-page-node-id="jWjLpBAs759dPw3UM8fTvT">08:20</div>
+      <div class="content" data-page-node-id="YsLtf1YPkDyTpiD6iVkdY5">
+        <h4 data-page-node-id="Mc8IvAvJSMb6ckQdxXgcMp">早餐：面线糊 <span class="tag tag-food" data-page-node-id="Q6MJeJWlflATr1DSz8HJhE">必吃</span></h4>
+        <div class="restaurant-card" data-page-node-id="Ev3Q1pzbraJu9zEtw69NFb">
+          <div class="rname" data-page-node-id="DYOhmZIKbePLttjDxkAR58">🍜 西街老记面线糊（西街182号）</div>
+          <div class="rdishes" data-page-node-id="eTtyEjxIxhJEkhUN2P1gH4">海蛎面线糊 — 海蛎大颗饱满+炸菜粿吸满汤汁 | 土笋冻 ¥8</div>
+          <div class="rprice" data-page-node-id="6iyjAlkokuMilBesdoKO4y">人均约 ¥15</div>
+          <div class="raddr" data-page-node-id="hFlCCuyhf8OT6AosA2uDJC">📍 西街182号 | 5:30营业 | 无分店</div>
+        </div>
+        <div class="food-nearby" data-page-node-id="BvkIEyCWqLpZqmlXkHbBmR">
+          <div class="fn-title" data-page-node-id="ro0tJialD3dzTtQTuIjK1s">🍴 西街早餐备选</div>
+          <div class="fn-item" data-page-node-id="ydfwhukJ2jVIB25fCxps3b"><span class="fn-shop" data-page-node-id="a6HVgo6utQ4Ck6ZpAi0FF0">水门国仔面线糊</span>（水门巷）— <span class="fn-dish" data-page-node-id="4wY3ItiKxGnW4uzUwYl7VA">面线糊(醋肉+大肠+海蛎)</span> + 炸五香 ¥15 <span class="fn-branch" data-page-node-id="tCpCmBF6BTTrIGNDBGYAAw">| 40年老店·6:00-14:00·大肠常断货早去</span></div>
+          <div class="fn-item" data-page-node-id="FYhdLw72IC3R7pjGrxeQG5"><span class="fn-shop" data-page-node-id="5m3tEEVAZA9vsRuziD9wgv">亚佛润饼店</span>（西街38号）— <span class="fn-dish" data-page-node-id="QDpIEJBPN9NeVCPSB1MMzy">润饼</span> 手工薄皮卷十余种馅料 ¥5/个 <span class="fn-branch" data-page-node-id="WEJrFBTq2EOf8hV48geuCb">| 80年老字号·9:00-21:00</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="bklnXFzkBIdcRtYNsUsqcz">
+      <div class="time" data-page-node-id="QyaybS4Zkm27AUID7mwCNs">09:00</div>
+      <div class="content" data-page-node-id="vH4t4aZPPNmA7OgfzAnPFL">
+        <h4 data-page-node-id="xOBuBG3Ye4x25gNRpQgdvX">🌸 簪花体验（西街聚美簪花馆）<span class="tag tag-cost" data-page-node-id="FVctmOas78RLWxTyQzg6Xh">¥199/人全包</span></h4>
+        <div class="restaurant-card" data-page-node-id="D36a2Z5ER1XxfJCzi4vd7m">
+          <div class="rname" data-page-node-id="8ziooFWERlDaBYxFMvGzCi">🌸 聚美簪花馆（西街）</div>
+          <div class="rdishes" data-page-node-id="ENUFOPIxeqEPNPUqKrrKIK">¥199全包：服装+簪花盘发+化妆+配饰+道具 | 近百套服装可选</div>
+          <div class="rprice" data-page-node-id="ul9Fb4JWeACBUA3yRJaV5H">¥199/人</div>
+          <div class="raddr" data-page-node-id="ZZbDMZzyCn6Bbd9L2oxeUG">📍 西街历史文化街区内</div>
+        </div>
+        <p data-page-node-id="hmBQoFO2cHx9GiRxXWEQsn">做完造型后沿西街一路走一路拍：①西街红砖古巷 ②开元寺东西塔 ③钟楼 ④店内古风场景</p>
+        <div class="info-box" data-page-node-id="gvPx4ocbKmAU2Y7aHC9tvs">💡 建议9:00前到，鲜花最新鲜。提前在小红书/电话预约。</div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="Nj0FJjJ8TEuPeGmXJGETUI">
+      <div class="time" data-page-node-id="FEAqPovL0U1ZK4XaQuJwSF">11:30</div>
+      <div class="content" data-page-node-id="EzPO2XvX1v7OXc2VKvYBRn">
+        <h4 data-page-node-id="FDTW7UA4ntyipnL96I2CIr">换装拍照+西街闲逛</h4>
+        <div class="food-nearby" data-page-node-id="t0HY3f0FQ9eBaqbPHSaup2">
+          <div class="fn-title" data-page-node-id="KBmAvoL1fL0ufuPeokJQTC">🍴 西街一路吃（边走边拍边吃）</div>
+          <div class="fn-item" data-page-node-id="ooXV0EmbQQ0oi3wUqtuYu6"><span class="fn-shop" data-page-node-id="RVQHfoKIKcYIFvuCNGIgOS">亚佛润饼店</span>（西街38号）— <span class="fn-dish" data-page-node-id="PX3HVHRElfcxk9YuSRGZr3">润饼</span> ¥5/个 <span class="fn-branch" data-page-node-id="IJxn6EBTFHX6IW4gZQ2gVR">| 80年老字号</span></div>
+          <div class="fn-item" data-page-node-id="zyiDfNV8pPzREhEKEEMUCE"><span class="fn-shop" data-page-node-id="LoiY21tZ4YlSV9uHMRlSc0">侯阿婆烧肉粽</span>（钟楼旁）— <span class="fn-dish" data-page-node-id="mwvrAavZrR9TVPM33fkSag">烧肉粽</span> 大块卤肉+咸蛋黄+香菇+栗子 ¥12 <span class="fn-branch" data-page-node-id="FKOMMf0aCyXUSAgSlwb0hU">| 有分店</span></div>
+          <div class="fn-item" data-page-node-id="boDEC35reEUbb26ZLwHIf8"><span class="fn-shop" data-page-node-id="bi3L85hKy4rFqlrDrYacn5">秉正堂石花膏</span>（金鱼巷，西街旁步行3min）— <span class="fn-dish" data-page-node-id="UQFhOBbcaVtFPTPxKTbMF9">四果汤</span> 自选5种料 ¥10 | <span class="fn-dish" data-page-node-id="E1LzCI6unelJWzF7LiP1yH">石花膏</span> ¥8 <span class="fn-branch" data-page-node-id="WiX0zKB4DQCAw5oBIx0AVE">| 有分店·14:00-22:00</span></div>
+          <div class="fn-item" data-page-node-id="qhO08ootrO64kINnq9zdrX"><span class="fn-shop" data-page-node-id="7IYxhm4SocdR2wIQrHxI3r">老西街炸货铺</span>（西街124号旁小巷，无招牌）— <span class="fn-dish" data-page-node-id="6oQxPe6Gf9d23AEaYvjI1i">炸鸡腿</span> 秘制腌一晚，咬开爆汁 ¥10/个 <span class="fn-branch" data-page-node-id="Qf77FDhFXQUIw1qlO4mqEE">| 16:00-23:00·口碑相传</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="nXk2ZxCM2YAv1ZPhEdXsip">
+      <div class="time" data-page-node-id="OmMcqhokPEsC609ekzWt5V">13:00</div>
+      <div class="content" data-page-node-id="osREDaVY8vIgYyiJU8GOl8">
+        <h4 data-page-node-id="RW2XFiBFA2xO6akIoovqC7">开元寺 <span class="tag tag-attraction" data-page-node-id="5uHl4r1zEtHyBHmfQ7Jjj2">免费</span></h4>
+        <p data-page-node-id="naNAj2sFiwkQOBJKQujVBD">从西街步行即到（西街176号）。唐武则天年间建造，1300年。东西双塔是泉州地标。</p>
+        <div class="swap-box" data-page-node-id="lTUTVpqAdMA7ij6LFGnqV0">🔄 簪花造型可以在寺前拍照，双塔做背景超绝。开元寺不算"文化型博物馆"，是活的寺庙。</div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="1ccBuyR3MtRauMn9dyWqSq">
+      <div class="time" data-page-node-id="65pOfaHyHRUiUBgRC9Pei5">14:30</div>
+      <div class="content" data-page-node-id="KNTForKxTMiI32eFbX58mz">
+        <h4 data-page-node-id="qSAd9tP9bucwzHHD6CTTDY">步行前往关帝庙 <span class="tag tag-transport" data-page-node-id="pKAA07DAXbUqLZQE1uJOLA">步行约15分钟</span> <span class="tag tag-attraction" data-page-node-id="9eR8rNwCpHsBpTUueoba1X">免费</span></h4>
+        <p data-page-node-id="q0BPCAgZXToIKso7skXvri">从开元寺步行15分钟到涂门街186号。泉州香火最旺的庙宇。旁边还有清净寺（拍个照就走）。</p>
+
+        <div class="food-nearby" data-page-node-id="8AOdmyEk0AZrn1y3KNAuVD">
+          <div class="fn-title" data-page-node-id="BaG96tuZlOUe3JY8FODSXe">🍴 涂门街正餐（关帝庙旁，步行5分钟）</div>
+          <div class="fn-item" data-page-node-id="imLowa7wzokFFoTEhvzDxY"><span class="fn-shop" data-page-node-id="ejYGQXphehkh7HJl9Zzxgj">斯丹姜母鸭</span>（涂门街总店）— <span class="fn-dish" data-page-node-id="AgdlIHj73foMdTKywbHtxR">姜母鸭</span> 偏甜口嫩鸭，砂锅+整蒜炖软烂 ¥68/只 | <span class="fn-dish" data-page-node-id="qZxIjlFN6Vmr2mXZvr0x0P">炸海蛎</span> ¥28 <span class="fn-branch" data-page-node-id="Pzxw1g7qia9GV6xZUQ9wFq">| 有分店（总店）·11:00-22:00</span></div>
+          <div class="fn-item" data-page-node-id="NXpOdBl4m7GXM6WYuFlbs8"><span class="fn-shop" data-page-node-id="35rdtBDFrn9TcviiJraXCc">好成财牛排馆</span>（涂门街）— <span class="fn-dish" data-page-node-id="BiHYzkrWl2wDrNbzOzFwzJ">牛肉羹</span> Q弹奶白汤 ¥15 | <span class="fn-dish" data-page-node-id="pF82HaB5JuWnCrPgnrHUXd">卤牛排</span> 软烂脱骨 ¥20 <span class="fn-branch" data-page-node-id="UQgj3Wdt6fk6BdPFj1bXSL">| 有分店·7:00开门</span></div>
+          <div class="fn-item" data-page-node-id="GkJ4mbc5lhE7Fwf9ueEH4T"><span class="fn-shop" data-page-node-id="moTiZ9cFnEMoK4MAsehGBg">忠记姜母鸭</span>（中山南路，打车5min）— <span class="fn-dish" data-page-node-id="KmnWdnjkw41efsHRIxwqGT">姜母鸭</span> 正番鸭大块，更咸香 ¥60/只 <span class="fn-branch" data-page-node-id="6RYlPgFVb2JEpSoLxBzfez">| 30年老店·无分店·现炖需等20min·提前电话预约</span></div>
+          <div class="fn-item" data-page-node-id="O6LoufgrsnmHmVffegLhW0">💡 斯丹和好成财在同一条街，关帝庙逛完直接吃。饭点人多错峰（11:00或17:00前到）。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="2JLp7WE1YOqz8GnMyv3gbA">
+      <div class="time" data-page-node-id="POoVK3UiQoQnL9eIQhFtak">16:00</div>
+      <div class="content" data-page-node-id="RIwH4A4BiYjx46RO5NdUYv">
+        <h4 data-page-node-id="fmrtm1psTf9LuyLHhQ1yWL">归还簪花服装+下午茶</h4>
+        <div class="food-nearby" data-page-node-id="c6K1Ar5Az4sE2eaX9Zn33x">
+          <div class="fn-title" data-page-node-id="DUO5prpFWgSQLbk4UTiQcG">🍴 下午茶（西街/金鱼巷附近）</div>
+          <div class="fn-item" data-page-node-id="Y9YbNRcaQexodNJtMMVbgz"><span class="fn-shop" data-page-node-id="jvIkydF6DKuCX0rKVT260s">秉正堂石花膏</span>（金鱼巷）— <span class="fn-dish" data-page-node-id="wjNLkTO4NSvuFXpoEQ6BLW">四果汤/石花膏</span> ¥8-10 <span class="fn-branch" data-page-node-id="IgnhIs0JNiGpG7aqYJdtUV">| 14:00-22:00·逛累了来一碗</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="ES0vbZGci4zSCCt0S52h4E">
+      <div class="time" data-page-node-id="jv4QsPK2qULOeaFljJjuee">17:00</div>
+      <div class="content" data-page-node-id="wv8lAnSphBijwnb5mt2qV1">
+        <h4 data-page-node-id="RplnSBalWurvmNIBtwoGPa">中山路步行街闲逛</h4>
+        <p data-page-node-id="hMBeJMGHcQVYGiugyQ16Og">骑楼建筑+老字号，比西街人少，适合傍晚闲逛买伴手礼。</p>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="XXBYvjxQUOpHUbSmX01iiB">
+      <div class="time" data-page-node-id="OGhkGndZQxOBqD53GovgVw">18:30</div>
+      <div class="content" data-page-node-id="JQvNPZNwDVECnETnuf4FIU">
+        <h4 data-page-node-id="tTM5WB62hwJgLqopA3es9X">晚餐：斯丹姜母鸭（涂门街总店）<span class="tag tag-food" data-page-node-id="Df6950uGCYFDXaWjjL43j7">必吃</span></h4>
+        <div class="restaurant-card" data-page-node-id="6kTp64h3T3gKEpALfnx76g">
+          <div class="rname" data-page-node-id="apq6KZqwvWJPZBcVOJbEOz">🦆 斯丹姜母鸭（涂门街总店）</div>
+          <div class="rdishes" data-page-node-id="W84Z2Dhu57yZI1UmDB5xN5">姜母鸭（整只）— 偏甜口嫩鸭，姜片酥脆如薯片，鸭肉软烂入味 | 炸海蛎</div>
+          <div class="rprice" data-page-node-id="St8348semmia0O41lmdaJ8">人均约 ¥70（一只约¥120-140）</div>
+          <div class="raddr" data-page-node-id="ICU6Kebtw01udeViXZFbQk">📍 涂门街（关帝庙旁边）</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="nBFwOLOwh0q762iexIN3ln">
+      <div class="time" data-page-node-id="vGs6aMJJhZMN4ydQeVX6IY">20:00</div>
+      <div class="content" data-page-node-id="BM9LX3RpisDirJmCuzpIqU">
+        <h4 data-page-node-id="rqMn75bARELxH1N6bGqGed">西街夜市+夜宵</h4>
+        <div class="food-nearby" data-page-node-id="msODguzwp8F8MtDzByRJDt">
+          <div class="fn-title" data-page-node-id="rz9GdEDBHjvFwCErnhZoep">🍴 西街夜市夜宵</div>
+          <div class="fn-item" data-page-node-id="6GIlSxthGXaE4GvuY1CAgy"><span class="fn-shop" data-page-node-id="UxUUuTMNXbatBuZ5jwEDyy">老西街炸货铺</span>（西街124号旁小巷）— <span class="fn-dish" data-page-node-id="P7jEuTPgElYPABLHUNo7mW">炸鸡腿/鸡翅</span> ¥6-10 <span class="fn-branch" data-page-node-id="1nBqwMJhLwFQE10biGHG60">| 16:00-23:00·无招牌口碑相传</span></div>
+          <div class="fn-item" data-page-node-id="3WsoBa9FAiASHPbC3XNKxJ"><span class="fn-shop" data-page-node-id="WEho9oiqrIDA8kArZEZeGy">西街老记面线糊</span>（西街182号）— <span class="fn-dish" data-page-node-id="DCIe0AO5fAgXhyQ3e0toSi">土笋冻</span> ¥8 | <span class="fn-dish" data-page-node-id="UIIRAvpjNtMr7th1itHUfv">海蛎面线糊</span> ¥15 <span class="fn-branch" data-page-node-id="NTF2SNTpDWCAYB3iEVF0rA">| 夜宵时段也营业</span></div>
+          <div class="fn-item" data-page-node-id="mzFque5ghDn3awuz3iD2gl">🦐 <span class="fn-shop" data-page-node-id="EYp9YFDLCJU9zOzstuPe0m">三脚虎痛风锅</span>（西街238号）— <span class="fn-dish" data-page-node-id="EyODAhSv47Mtw9Ysyb6iV2">现炒海鲜粥</span> 红膏蟹+活虾+生蚝 ¥120 <span class="fn-branch" data-page-node-id="Cvlbeg15691j3OPNrWj632">| 五楼可拍双塔夜景</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="gPrlFR7snQY5i7aSkV9XKk">
+      <div class="time" data-page-node-id="N2MjL8IwjxrKQcExdCX6DH">21:30</div>
+      <div class="content" data-page-node-id="tD1ldtPiiSRvf0GDivWl4R">
+        <h4 data-page-node-id="k1uOpf04lpEKtOKanA9n02">打车回酒店 <span class="tag tag-transport" data-page-node-id="miXErKvFH7I71onuJHeDko">打车 15-20分钟 ¥25-30</span></h4>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================= DAY 5 ============================= -->
+<div class="day-section d5" id="day5" data-page-node-id="TqHamGMY7EMRdBrglvcQeB">
+  <div class="day-header" data-page-node-id="ztlBaqWoZ46gUjJcGSTw5f">
+    <span class="day-badge" data-page-node-id="bcfdSOOQBcgWCPUVAYOaJi">DAY 5 · 10.5 周日</span>
+    <h2 data-page-node-id="GCZp8eeoNYEuKEaorV7e92">泉州→厦门·沙坡尾+环岛路</h2>
+    <div class="date-info" data-page-node-id="yYURsfr73HdLI727VFlUBX">住宿：厦门SM云睿@酒店（湖里区吕岭路295号）</div>
+  </div>
+  <div class="timeline" data-page-node-id="SkJTspEdjSLceEU3GKTjZA">
+
+    <div class="time-block" data-page-node-id="5gAo0bUfOxQFDIH2nAvvmJ">
+      <div class="time" data-page-node-id="C4CHQHLlPvl3wCmli5FbSU">08:00</div>
+      <div class="content" data-page-node-id="gFgZDGHnL5tiuGuSzbi3eQ">
+        <h4 data-page-node-id="YphJ6nKVY8WgAaRlnnABme">退房+打车前往泉州站 <span class="tag tag-transport" data-page-node-id="DWDsDT77MDu0fXljmNGS31">打车 20-25分钟 ¥40</span></h4>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="MnrNT9r5Kdt3ctXyFn8bDB">
+      <div class="time" data-page-node-id="nFiy0BbbEPPdofPZp1Hg1S">09:00</div>
+      <div class="content" data-page-node-id="6Moav61nhsMvLyHLoXSOnT">
+        <h4 data-page-node-id="rcAuj8WPdLfqA5fmy04iAy">高铁：泉州→厦门北 <span class="tag tag-transport" data-page-node-id="wnVqeRtdPwPGxnjOGfxZhV">约30分钟 · 二等座¥32</span></h4>
+        <p data-page-node-id="vcgCcQnUOsEo5cKkSNuqEc">每20-30分钟一班，班次密集。</p>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="eqDtsNJsOsJbNHOSsdoksl">
+      <div class="time" data-page-node-id="NFKKsUAKCSjyM8Ijtqv72O">10:00</div>
+      <div class="content" data-page-node-id="eTDpgaGyP0GGya0mOSj1uv">
+        <h4 data-page-node-id="aF1FWVU6ypnrjidHO6JXsL">打车前往酒店+入住 <span class="tag tag-transport" data-page-node-id="5GKat3o1lnV3yQ6o3gbtyY">打车 20分钟 ¥40</span></h4>
+        <div class="route-line" data-page-node-id="tBKdhXZoIcFOsmnGDu5mVl">📍 厦门北站 → 打车 → SM云睿酒店（吕岭路295号）</div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="A3iYVYfhpAn0WfRyp0gf1j">
+      <div class="time" data-page-node-id="07fWcdIqR70TMBv5CP76XS">11:00</div>
+      <div class="content" data-page-node-id="V0ArXKKoOkfxzlACrbpPLK">
+        <h4 data-page-node-id="SEXLGoZyc9RJa29LZK4CVc">午餐 <span class="tag tag-food" data-page-node-id="rtBIPBsjUtJaomr0fBM0Zm">必吃</span></h4>
+        <div class="restaurant-card" data-page-node-id="vizgcbiIOJ2KD0YlYR0DUC">
+          <div class="rname" data-page-node-id="BAxIFbkE6n1Fh1n5wrvLOR">🍜 丽达轩沙茶面（江头东路59号）</div>
+          <div class="rdishes" data-page-node-id="NAO27JAnjb6VEHonfXiWzi">几十年老店，汤底浓郁醇香微甜 | 推荐小料：扁食、滑肉、鱿鱼、油条</div>
+          <div class="rprice" data-page-node-id="5uPKGyT2Bh8IboAHHeveiO">人均约 ¥20</div>
+          <div class="raddr" data-page-node-id="jOOoiYvCV2MXP45fnINHpR">📍 江头东路59号（就在SM旁边！）</div>
+        </div>
+        <div class="food-nearby" data-page-node-id="byOrE7BcYZUfVylTMJBc09">
+          <div class="fn-title" data-page-node-id="dX0pRhEJ4XC2EowFV9icbp">🍴 SM酒店附近备选</div>
+          <div class="fn-item" data-page-node-id="qH2AGfcJ8eGwTHmxR68ZXG"><span class="fn-shop" data-page-node-id="jo8qvUxpADkSWoyMqjo0Ei">浮屿大同鸭肉粥</span>（厦禾路）— <span class="fn-dish" data-page-node-id="8f77evLJCcbi1TapvIgWpH">鸭肉粥+油条</span> ¥18 <span class="fn-branch" data-page-node-id="VI8nwbwyBDbjiVUwNzjRKj">| 24小时营业·非景区人少</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="kvBNLzUGI4S8edCZRYBelj">
+      <div class="time" data-page-node-id="ghNeVSHGWCKBkZRoNaB211">13:00</div>
+      <div class="content" data-page-node-id="Puq7NbJc4dOlOWO0YfzqXo">
+        <h4 data-page-node-id="bqAIlbYU0pOxvTKV1lj0Mx">打车前往沙坡尾 <span class="tag tag-transport" data-page-node-id="q045VyG4vI4xsteFkco4PU">打车 25分钟 ¥35</span></h4>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="OAUps7qInCKbObdEWuIw5U">
+      <div class="time" data-page-node-id="um4S9WZCJ1RRFojnoZf2qb">13:30</div>
+      <div class="content" data-page-node-id="vXZvtU0xYBDn221dptJDXc">
+        <h4 data-page-node-id="z4If2JB9e0YkNP6rHc47BW">沙坡尾漫步 <span class="tag tag-attraction" data-page-node-id="sbU2A09EbLzZNDAhFgctAK">免费</span></h4>
+        <p data-page-node-id="KngaEcOv2j6BcXrm9XTKhi">厦门最文艺街区，老渔港避风坞+创意艺术区。推荐：避风坞 → 艺术西区（涂鸦墙+创意市集）→ 大学路咖啡馆。</p>
+        <div class="swap-box" data-page-node-id="ceL1FhOIGcuSSLEoSWAJVb">🔄 如果挤可走到旁边<strong data-page-node-id="ZCGfLBM1y6WuykahSOmjdG">演武大桥观景平台</strong>（免费，海景大桥+鼓浪屿远景）。</div>
+        <div class="info-box" data-page-node-id="q5FERQHm0TJnjZbR4wAWMU">🎵 沙坡尾艺术西区国庆常有免费小型音乐演出。也可在"秀动"APP搜当日厦门Live House。</div>
+
+        <div class="food-nearby" data-page-node-id="HDN2BTbBnBZ6oYLHqa0iv8">
+          <div class="fn-title" data-page-node-id="EvgtKuzUAMrNkbKF1C0zmW">🍴 沙坡尾/打车10分钟可达的美食</div>
+          <div class="fn-item" data-page-node-id="xunjRpnDP3ZkN0ZMTEG3bx"><span class="fn-shop" data-page-node-id="6FD1NKQlbjC1gPZBWq6xum">四里沙茶面</span>（槟榔西里146之1，打车10min）— <span class="fn-dish" data-page-node-id="NZuR00ryKB3w0Y1wtU0DM9">沙茶面</span> 本地老字号非网红 ¥36 <span class="fn-branch" data-page-node-id="4tw3nYQtHdWDLyfdJgD8CJ">| 有分店·7:00-20:00</span></div>
+          <div class="fn-item" data-page-node-id="oifve555lLWpzxs7MeMVyk"><span class="fn-shop" data-page-node-id="UCOrVYz94irJgQK3KLYlwW">莲欢海蛎煎</span>（局口街，打车10min到中山路/八市片区）— <span class="fn-dish" data-page-node-id="zunBfmATF6fsW6unFk8UA0">海蛎煎</span> 外酥里嫩 ¥20 <span class="fn-branch" data-page-node-id="qMrdozOxPcuXYFFf92IImF">| 无分店·巷子里本地人都知道</span></div>
+          <div class="fn-item" data-page-node-id="IQiTMv439pRgsgMbTyl8A2"><span class="fn-shop" data-page-node-id="fb71mRim61lTLymcT5v98e">天河西门土笋冻</span>（斗西路）— <span class="fn-dish" data-page-node-id="PiCL9uO7MdaDJBIaqL0WhO">土笋冻</span> ¥10-15 <span class="fn-branch" data-page-node-id="QTLUVW0DR3EsHDEXVwPdDL">| 无分店·敢吃的人会爱上</span></div>
+          <div class="fn-item" data-page-node-id="vDOnuguP63BfAhu2trRgFM">💡 沙坡尾本身有咖啡店和小食店适合下午茶，正餐建议打车去四里沙茶面或百家村。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="uZysBDO5j7Jej2OiGJQ6md">
+      <div class="time" data-page-node-id="DrldEQXAFdS7OEAFOGQ9bz">16:30</div>
+      <div class="content" data-page-node-id="sBXLsE3Zl7lkzJqWenEvtg">
+        <h4 data-page-node-id="ngpykOFTrV8NB4FLhag8jE">环岛路海滨漫步 <span class="tag tag-attraction" data-page-node-id="GZ0tDGxcxG1iQhb7br5Igo">免费</span></h4>
+        <p data-page-node-id="VpMoHASshbTfanjT9CV3q8">从沙坡尾步行10分钟到环岛路。最美海滨步道。</p>
+        <div class="swap-box" data-page-node-id="QAmyV43v1hkXguL5VDcSvN">🔄 白城段人最多，往<strong data-page-node-id="3vBttigWfLJSE9qrfFfFWy">五缘湾方向</strong>走越走人越少。五缘湾湿地公园是厦门最小众海景公园。</div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="OJp62tnvjdpOXQDxZ4OEc8">
+      <div class="time" data-page-node-id="d4IkIOpVmqujnEhJkcMWNA">18:00</div>
+      <div class="content" data-page-node-id="wEkHXCcXCxRCfqk3dH3gJR">
+        <h4 data-page-node-id="DUA1SC87lK7QQMxqPRWaMb">晚餐 <span class="tag tag-food" data-page-node-id="0YLUjEWXw0kvkO0eeQbE79">必吃</span></h4>
+        <div class="food-nearby" data-page-node-id="j3UlNxRhq2eQVFdfX4B98I">
+          <div class="fn-title" data-page-node-id="9ySXQe3DkbLSq5N0EsrawZ">🍴 晚餐选择（打车到八市/百家村片区）</div>
+          <div class="fn-item" data-page-node-id="pc70j4n2ZmNn8LfpBvZvhb"><span class="fn-shop" data-page-node-id="pQcP9TOPPaE1AqlzDMJDLC">八市阿杰五香</span>（开禾路·八市）— <span class="fn-dish" data-page-node-id="aPTEMP1DETnmyd8jiz0ZCE">炸五香</span> ¥4/条 <span class="fn-branch" data-page-node-id="4hPVv9kNJQhO6tuHzD68Ea">| 有分店·必吃榜多年上榜·早上人少</span></div>
+          <div class="fn-item" data-page-node-id="5f3xWvJ4lljKdXaUXBZ1G1"><span class="fn-shop" data-page-node-id="GFojjGf0wwmO75tnCUZKAI">阿牛章鱼</span>（百家村路）— <span class="fn-dish" data-page-node-id="jHm48ik5Z5BDfAHhb8fjeI">白灼章鱼</span> 爽脆弹牙 ¥40 <span class="fn-branch" data-page-node-id="TbZSp8z40tbZH2OfztXnt7">| 无分店·深夜食堂·社区老店国庆不挤</span></div>
+          <div class="fn-item" data-page-node-id="yJiM0hUdpKTum3peP2vvjf"><span class="fn-shop" data-page-node-id="XQXDDO0IQcjoDSOLBj0mJZ">黄则和花生汤</span>（中山路22-24号）— <span class="fn-dish" data-page-node-id="F8TRq7RMWAaGe92avVBzKt">花生汤+油条</span> ¥8-13 <span class="fn-branch" data-page-node-id="rUTHksFv7UFtrztm2uwE9F">| 百年老字号·翻台快</span></div>
+          <div class="fn-item" data-page-node-id="CdeRbKHa4yG4j4fIPkRsDt"><span class="fn-shop" data-page-node-id="SBzM1fGMOtvx0CFtkWnUA1">1980烧肉粽</span>（中山路）— <span class="fn-dish" data-page-node-id="ktqW7Ab5CEjyHowDW4rJaS">烧肉粽</span> ¥15 <span class="fn-branch" data-page-node-id="WSpiytVW1T9ZsKsHKU7Acj">| 有分店</span></div>
+          <div class="fn-item" data-page-node-id="9PWJZYFWTqkbCtCGfRVsNQ">💡 避开曾厝垵（国庆人山人海+溢价严重）。八市早上去人最少，晚餐去百家村/中山路。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="pF6fA9gIVnoPb3LZPuVQPH">
+      <div class="time" data-page-node-id="C3FvEIEkTJENlJYXL1Kpbz">20:00</div>
+      <div class="content" data-page-node-id="8W8zq6SuDjRloYqIAA4IbO">
+        <h4 data-page-node-id="KBE0gYFSCGhD7iSTpJeQGh">打车回酒店 <span class="tag tag-transport" data-page-node-id="y5kFaLgKO6hLguvIykzBrC">打车 25分钟 ¥35</span></h4>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================= DAY 6 ============================= -->
+<div class="day-section d6" id="day6" data-page-node-id="yS2KK2wnFWPsNK7AbFuGGw">
+  <div class="day-header" data-page-node-id="q6HgsYmABOKqp9kzsHopnK">
+    <span class="day-badge" data-page-node-id="RnXEcbVLw85ytrmK6gNN3n">DAY 6 · 10.6 周一</span>
+    <h2 data-page-node-id="c2BEZ8MQQCGOJoc74ixMmn">鼓浪屿+集美学村</h2>
+    <div class="date-info" data-page-node-id="DSYlnBAc4pzxm7zqdri0u5">住宿：厦门SM云睿@酒店 | 船票提前在"屿见厦门"小程序购买</div>
+  </div>
+  <div class="timeline" data-page-node-id="LDqCTgZvNbLm2zjoF2yCD3">
+
+    <div class="time-block" data-page-node-id="jfZQuAP7BM293PWc1HHz3r">
+      <div class="time" data-page-node-id="D4Jj3CtwIuGetr9cARqGUV">08:00</div>
+      <div class="content" data-page-node-id="dr3xlGGgThFwuQ4G7bdkow">
+        <h4 data-page-node-id="jWcf3FNW9Z4pxvcuZKHpyY">打车前往东渡客运码头 <span class="tag tag-transport" data-page-node-id="i4C2WgX5EVWoTeJfqdc4B1">打车 25分钟 ¥35</span></h4>
+        <div class="warn-box" data-page-node-id="6aLj63Vz1sW4zBAZDiAM25">⚠️ 船票在"屿见厦门"小程序提前10天买（9/26前），建议买9:30班次。游客票¥35或¥80含往返。</div>
+        <div class="food-nearby" data-page-node-id="5fk7GN7aXPdLVVrcz8QgTK">
+          <div class="fn-title" data-page-node-id="kRwdOxajtmvRUH8KBCviaV">🍳 出发前早餐（SM附近）</div>
+          <div class="fn-item" data-page-node-id="4mb7UduP8ypBliFqUFranM"><span class="fn-shop" data-page-node-id="P8EHDZyPUs24dlxSTCgM9D">浮屿大同鸭肉粥</span>（厦禾路）— <span class="fn-dish" data-page-node-id="N7cV8SIxJTMLRcEn23wOP7">鸭肉粥+油条</span> ¥18 <span class="fn-branch" data-page-node-id="2HtCw9btQI3hSyGvCcvsWv">| 24h营业</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="6CquWwHKEpR4ZNWBVxDLyD">
+      <div class="time" data-page-node-id="q6sdfAH3cqwqWfsV5RcKcC">09:30</div>
+      <div class="content" data-page-node-id="TmZcQBUVNTxiU9BR9AYzfJ">
+        <h4 data-page-node-id="SXk8QwrUM9FrgTp94M6IPt">乘船前往鼓浪屿 <span class="tag tag-cost" data-page-node-id="4BltbUrQeISk1G6B0q4w3j">¥35或¥80/人含往返</span></h4>
+        <div class="route-line" data-page-node-id="lRPYDAkrX7GVU8c5Gorlqo">⛴ 东渡客运码头 09:30 → 三丘田码头 约10:00到达</div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="4tQgsnLQAQbOUfsfyBxami">
+      <div class="time" data-page-node-id="4Z49XmixebGh62mmEpYvox">10:00</div>
+      <div class="content" data-page-node-id="wWHaBQKXXnDllZDI0GbAzE">
+        <h4 data-page-node-id="SHFxXDmv0te7rECFBn2xNJ">鼓浪屿探索 <span class="tag tag-attraction" data-page-node-id="Wky5jnxaSsXfIrwvAsPkGu">岛内免费·部分景点收费</span></h4>
+        <p data-page-node-id="Tw8f3Gl4PxZkVoci8XSQFj"><strong data-page-node-id="UM4P48ux503XeiGQBUelsO">路线：</strong>三丘田码头 → 最美转角 → 龙头路美食街 → 菽庄花园 → 港仔后海滨 → 日光岩 → 小巷漫步</p>
+        <p data-page-node-id="rzwlMcVrhNmHwEvOsICBzy">联票¥80/人含日光岩+菽庄花园+皓月园</p>
+        <div class="swap-box" data-page-node-id="zpzcBbbjfhzQCpR9HwNvam">🔄 避人：10点先逛小巷老别墅（鼓新路、福建路，人少出片），12点去龙头路吃饭，下午2点去菽庄花园，3:30上日光岩（傍晚光线更好）。</div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="lOY2G21bPvMib3kE1YaVVj">
+      <div class="time" data-page-node-id="IJhtFCwt5L0BAQo7Zniq68">12:00</div>
+      <div class="content" data-page-node-id="XsPHIIdDoKdJTeKocR09Bt">
+        <h4 data-page-node-id="evujrP7p3PJWCiIcgWbrOx">午餐：龙头路美食街 <span class="tag tag-food" data-page-node-id="dipOcxmwGmr2wbtENm6MCh">必逛</span></h4>
+        <div class="food-nearby" data-page-node-id="6ZRV1OVIZkg92SdJClUREf">
+          <div class="fn-title" data-page-node-id="lmhG6VadZXhKIqkygqKJdU">🍴 鼓浪屿龙头路美食街（岛上吃）</div>
+          <div class="fn-item" data-page-node-id="sUesqS9uxB2SpOMZxqlINp"><span class="fn-shop" data-page-node-id="ZPjb6C1U1Sg0js6lheSBXQ">林氏鱼丸</span> — ¥15 | <span class="fn-shop" data-page-node-id="w6ae7Zd3dm2NtQOnxCiB1K">黄胜记肉脯</span> — ¥25 | <span class="fn-shop" data-page-node-id="JmC8oscI4u6WseXw41mo5C">海蛎煎</span> — ¥25 | <span class="fn-shop" data-page-node-id="EywSGYL8oD50sG6Oo44NWS">麻糍</span> — ¥10</div>
+          <div class="fn-item" data-page-node-id="SX6nwozCgxkOylnZIPWD15"><span class="fn-shop" data-page-node-id="DCcGTUZv7B0Mgyu8EJTSaV">鼓浪屿馅饼</span>（龙头路）— 百年非遗，饼皮6-8层酥脆 ¥35（伴手礼）</div>
+          <div class="fn-item" data-page-node-id="EY1SXxflG0otOmqPwFrnlP">⚠️ 龙头路国庆人多价高，建议上岛前在八市吃饱，岛上只买馅饼当伴手礼。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="ZH9y6IMwHkmIHuLcRAAI3i">
+      <div class="time" data-page-node-id="zpcLZY9PETlcyCRqdD6t8U">15:30</div>
+      <div class="content" data-page-node-id="fDLJEXmJZ1ioBBB7CPvt1S">
+        <h4 data-page-node-id="IJqKYBVjWF3fMMh3QidF6A">乘船返回</h4>
+        <div class="route-line" data-page-node-id="BhH6pHrYh373rN62GqF7ma">⛴ 三丘田码头 → 东渡码头 约15:50到达</div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="Tg9Uyxe5yNappK5KGeMChT">
+      <div class="time" data-page-node-id="rRqRuF5KtkSd1CrFbbSPiK">16:00</div>
+      <div class="content" data-page-node-id="NyHDh9phoIvcr1XPNQWIJm">
+        <h4 data-page-node-id="6AUc038sfRtzHAQWe8kFr9">打车前往集美学村 <span class="tag tag-transport" data-page-node-id="GPMBLTckIXr9pEieXjmySE">打车 25分钟 ¥45</span></h4>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="6Vhe57VOuyhfbuanXA4Xrh">
+      <div class="time" data-page-node-id="mdivoBgqSLLkMCYK8Zyr90">16:30</div>
+      <div class="content" data-page-node-id="9h7QOluJSr8XeKIK8CkVqr">
+        <h4 data-page-node-id="UpoLbkpsTGAwccJqf8cPFB">集美学村漫步 <span class="tag tag-attraction" data-page-node-id="4Co27E2FijNqYEoKy6nGJi">免费</span></h4>
+        <p data-page-node-id="ddFbOYLqyQd2uc32OGU4TR">陈嘉庚创办的校园建筑群，"穿西装戴斗笠"中西合璧。推荐：龙舟池（拍倒影）→ 嘉庚建筑群 → 大社老街区。</p>
+        <div class="swap-box" data-page-node-id="WFZTFY25nZw7k98yOAfgBa">🔄 集美学村国庆人很少，是厦门最清净景点之一。傍晚夕阳下龙舟池特别美。</div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="rNvGRNnB3jgsb3zuNf4I2c">
+      <div class="time" data-page-node-id="BUYVYB430rVzao0MyIp38A">18:30</div>
+      <div class="content" data-page-node-id="7Tb7Md8hXliLbIkGGDYT1J">
+        <h4 data-page-node-id="8GJKVyEaUEtsKlhzcc9JVW">晚餐 <span class="tag tag-food" data-page-node-id="OzCT4OPsNAvnKXdHHbS4wk">必吃</span></h4>
+        <div class="food-nearby" data-page-node-id="o25fiHoQW82Gsvp9L2aw5F">
+          <div class="fn-title" data-page-node-id="lIK4z4HjJdIkbU6Rcm4hGm">🍴 集美学村美食（石鼓路/集源路周边，步行串联）</div>
+          <div class="fn-item" data-page-node-id="hUsH1nPspAETysIOcm2Ci1"><span class="fn-shop" data-page-node-id="hgJf8120BSQyI2fEaWaEjZ">八戒鸭仔面公司</span>（集源路90-103，建行对面）— <span class="fn-dish" data-page-node-id="KghtgK9rwAPefV3E133pps">鸭仔面</span> 活鸭现煮当天售，汤色清亮滋味醇厚 ¥25 | <span class="fn-dish" data-page-node-id="ZpJhenR6gFA4qLzAoTCkv2">果木熏鸭</span> 外焦内嫩蘸蒜蓉醋 ¥30 <span class="fn-branch" data-page-node-id="I8UyvQ9tXwu1hGHwUkFc3s">| 无分店·16:30-23:30卖完为止·集美夜宵灵魂</span></div>
+          <div class="fn-item" data-page-node-id="zPXeny4TD9OW0ui71xjjFa"><span class="fn-shop" data-page-node-id="QANsR7YzbLgJbpMijnixUg">奔水冬粉鸭</span>（石鼓路附近）— <span class="fn-dish" data-page-node-id="HVQRnBJFeCiEf0ewpKEomA">冬粉鸭</span> 地瓜粉丝滑嫩吸汤，鸭肉酥烂脱骨 ¥18 <span class="fn-branch" data-page-node-id="wsW29CArzYBVVrGO19jxLQ">| 无分店·集美人早餐标配</span></div>
+          <div class="fn-item" data-page-node-id="h3b52QkiMyIyY5INHd2PPM"><span class="fn-shop" data-page-node-id="XWutiPYiXcqxfeHYRnzx4O">陈生记沙茶面</span>（侨英街道）— <span class="fn-dish" data-page-node-id="Mhyq3KtfLqTLVzFByLFNuw">沙茶面</span> 辣中带甜甜里藏鲜，老板加料不手抖 ¥22 <span class="fn-branch" data-page-node-id="e0GhLfSkVcWnWhugkeoSJ4">| 无分店·集美人首选</span></div>
+          <div class="fn-item" data-page-node-id="NVSdwK4U2s4k2EH0pWG5do"><span class="fn-shop" data-page-node-id="GxZbt8UVOWlTkfCpNOwZkZ">联生炒面</span>（大社附近）— <span class="fn-dish" data-page-node-id="5ndrXBLKEDpaH7y4J5BIOz">炒面</span> 镬气十足，闽南油面大火快炒 ¥20 <span class="fn-branch" data-page-node-id="FuRcf0ZR7MMdHKOlZwEkkW">| 无分店·配扁食汤经典搭配</span></div>
+          <div class="fn-item" data-page-node-id="ysQSEsAs30LEDST6dkL8Jj">🍮 收尾甜品：<span class="fn-shop" data-page-node-id="IbzeiXZ3hRlKWFpg13TFCo">林氏麻糍</span>（石鼓路）— <span class="fn-dish" data-page-node-id="3fbMrPe0A5AhcsfZkNQKa9">麻糍</span> 当天现做Q弹不粘牙 ¥8 <span class="fn-branch" data-page-node-id="5oBM50eUMrLjee393EuAWh">| 无分店·花生/芝麻/红豆味</span></div>
+          <div class="fn-item" data-page-node-id="2t16Di1mYhSIKLlCF2t4w3">💡 集美食物性价比远高于景区，全在学村周边步行/骑车串联，不是游客店全靠街坊口碑。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="z5HTv7RB3IiUjznPDIrEEH">
+      <div class="time" data-page-node-id="6vRY2QaouzTJ4v4KU61KrR">19:30</div>
+      <div class="content" data-page-node-id="ThnmObO3lvp85snp8lWoTb">
+        <h4 data-page-node-id="3zBWwAbE4pVnD2reTW3Yb9">打车回酒店 <span class="tag tag-transport" data-page-node-id="D4KfeJz4jhrXi0Y1ArX2K1">打车 20分钟 ¥30</span></h4>
+        <p data-page-node-id="Mo4FFA8htHFhG6EoIBpzQr">集美离SM云睿酒店很近。</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================= DAY 7 ============================= -->
+<div class="day-section d7" id="day7" data-page-node-id="lf5VlwVO8lG8UbreiWOZPA">
+  <div class="day-header" data-page-node-id="YGmXgPvvMWYJ0AVLSHp6Iu">
+    <span class="day-badge" data-page-node-id="izH5hCDeoBJhCS7GNwSimo">DAY 7 · 10.7 周二</span>
+    <h2 data-page-node-id="GBovqVV0USbF7zeKeZNnRy">厦门返程</h2>
+    <div class="date-info" data-page-node-id="p9myCAAS1DMyIoGWvQe5R5">妹妹飞回新疆 | 酒店距高崎机场约15-20分钟</div>
+  </div>
+  <div class="timeline" data-page-node-id="9TuNjg1fUCYZJPxPWN2Qxj">
+
+    <div class="time-block" data-page-node-id="XrG4HfQJm97KdEAVLLSsYj">
+      <div class="time" data-page-node-id="DNnihjrj7PhbEc7XFfLh7m">上午</div>
+      <div class="content" data-page-node-id="OOuJQexYSHdF7apKstX1U9">
+        <h4 data-page-node-id="2sGyIBDQq2UOs8EFh23oRR">退房+前往机场</h4>
+        <p data-page-node-id="agOCmpCjePtaw8MjGh1M4X">SM云睿酒店距高崎机场打车约15-20分钟，¥30-40。建议提前2小时到机场。</p>
+        <div class="route-line" data-page-node-id="LKpDjh6A1hkiIpX61uGl0X">✈️ SM云睿酒店 → 打车15-20min ¥30-40 → 厦门高崎国际机场</div>
+        <div class="info-box" data-page-node-id="GDbBjzYbCMpQWXYG0cM52Q">💡 如航班较晚可去SM城市广场逛逛或附近海堤公园散步看海。</div>
+
+        <div class="food-nearby" data-page-node-id="BQCa9pvHpNsdcwY8rtJJl8">
+          <div class="fn-title" data-page-node-id="jLRHMJISEfLEnAQAFgtfDY">🍳 离开前的早餐/早午餐</div>
+          <div class="fn-item" data-page-node-id="yahtaJGGWF7cvbYctC8jxh"><span class="fn-shop" data-page-node-id="U18iD9lDAcE4veIaPvUtcb">浮屿大同鸭肉粥</span>（厦禾路）— <span class="fn-dish" data-page-node-id="UlbvPZw41jsfyxVJPOqPny">鸭肉粥+油条</span> ¥18 <span class="fn-branch" data-page-node-id="EUGfK6iBLziBL8nGUh8c1r">| 24h·航班早也能吃到</span></div>
+          <div class="fn-item" data-page-node-id="sP6ieFm0tOj0gZPSJNXUEn"><span class="fn-shop" data-page-node-id="1wfuow8i4QETTFPBp4axxh">思北花生汤</span>（思明北路64号）— <span class="fn-dish" data-page-node-id="1O2DwJ7hxqT4esHVAa0lBd">花生汤</span> 百年甜汤 ¥15 <span class="fn-branch" data-page-node-id="m3hjgkGLcfNtZx82lKGn2U">| 老城区·打车15min</span></div>
+          <div class="fn-item" data-page-node-id="rLaklSFR7nPehNk17eLfTt">💡 SM城市广场内也有餐饮选择，酒店步行可达，方便赶飞机前快速吃。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-block" data-page-node-id="uZ7pHsri6YLFVefBPesgKS">
+      <div class="time" data-page-node-id="3dj03tPwuRuh0BdWMv39TH">—</div>
+      <div class="content" data-page-node-id="r0khTR9C6HX3EJlltCGg65">
+        <h4 data-page-node-id="Vqq76YImARGMKJrdSr4SnG">✈️ 妹妹飞回新疆，行程结束</h4>
+        <p data-page-node-id="qGv0kKqTwBNZxpaQEleLrm">祝旅途愉快！🎉</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="back-top" data-page-node-id="bT04TBLEKsJTxPEzQWYTcd">
+  <a href="#day1" data-page-node-id="JsRmef0NlS7UgAi5uNEEvj">↑ 回到Day 1</a> · <a href="index.html" data-page-node-id="GO41wSGqJzDBsprdqEkxg3">← 返回首页</a>
+</div>
+
+</div>
+
+<div class="footer" data-page-node-id="xNkV9mZAGH0L52HEhXIKra">
+  <p data-page-node-id="HMcybF3UMJ86n02FQ5whBL">国庆福建七日游 · 详细行程（含美食标注）</p>
+  <p data-page-node-id="o2E8md4WAX1P00g9qSBDKE">10.1-10.7 | 福州→平潭→泉州→厦门</p>
+</div>
+
+</body>
+</html>
